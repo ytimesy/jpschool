@@ -1,0 +1,25 @@
+<div class="prose">
+  <h2><%= @lesson[:title] %></h2>
+  <p class="text-sm text-gray-600"><strong>目標:</strong> <%= @lesson[:objective] %></p>
+
+  <div class="mt-4 space-y-4">
+    <% @lesson[:phrases].each do |p| %>
+      <div class="p-3 bg-white border rounded">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-lg font-medium"><%= p[:japanese] %></div>
+            <div class="text-sm text-gray-500"><%= p[:kana] %></div>
+            <div class="text-sm text-gray-700 mt-2"><%= p[:translation][:en] %></div>
+          </div>
+          <div class="ml-4">
+            <audio data-audio-src="<%= p[:audio] || '#' %>" controls></audio>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6">
+    <a href="/lessons/<%= @lesson[:id] %>/quiz" class="px-4 py-2 bg-indigo-600 text-white rounded">小テストへ</a>
+  </div>
+</div>

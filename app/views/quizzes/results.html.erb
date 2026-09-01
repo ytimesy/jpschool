@@ -1,0 +1,8 @@
+<div class="prose">
+  <h2>結果</h2>
+  <p>スコア: <strong><%= @score %></strong> 点 （<%= @correct %> / <%= @total %>）</p>
+  <div class="mt-4">
+    <a href="/lessons" class="px-4 py-2 bg-gray-200 rounded">レッスンに戻る</a>
+    <a href="/lessons/<%= params[:lesson_id] %>/quiz" class="px-4 py-2 bg-indigo-600 text-white rounded ml-2">再挑戦</a>
+  </div>
+</div>

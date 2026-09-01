@@ -1,0 +1,9 @@
+<div class="prose">
+  <h2>復習一覧</h2>
+  <% @items.each do |i| %>
+    <div class="p-3 bg-white border rounded mb-2">
+      <div class="font-medium"><%= i[:question] %></div>
+      <div class="text-sm text-gray-500">間違え回数: <%= i[:wrong_count] %></div>
+    </div>
+  <% end %>
+</div>

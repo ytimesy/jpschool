@@ -15,7 +15,7 @@ ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_LOG_TO_STDOUT=true
 
-RUN bundle exec rake assets:precompile || true
+RUN mkdir -p tmp/pids storage && SECRET_KEY_BASE_DUMMY=1 bundle exec rake assets:precompile
 
 EXPOSE 8080
 

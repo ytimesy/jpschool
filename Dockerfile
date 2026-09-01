@@ -1,5 +1,22 @@
-FROM nginx:alpine
-RUN rm -rf /usr/share/nginx/html/*
-COPY public /usr/share/nginx/html
+FROM ruby:3.2.2-alpine
+
+RUN apk add --no-cache build-base nodejs yarn postgresql-dev tzdata bash libxml2-dev libxslt-dev
+
+WORKDIR /app
+
+# Install gems
+COPY Gemfile Gemfile.lock* ./
+RUN gem install bundler && bundle config set without 'development test' && bundle install --jobs 4 --retry 3
+
+# Copy the app
+COPY . .
+
+ENV RAILS_ENV=production
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
+
+RUN bundle exec rake assets:precompile || true
+
 EXPOSE 8080
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

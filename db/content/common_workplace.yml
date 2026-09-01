@@ -1,0 +1,105 @@
+course:
+  slug: common-workplace
+  title:
+    ja: 仕事の基本
+    en: Workplace Basics
+    vi: Tieng Nhat co ban tai noi lam viec
+
+lessons:
+  - slug: ask-confirm
+    content_version: 1
+    published: false
+    estimated_minutes: 7
+    title:
+      ja: 分からない・確認
+      en: Ask and Confirm
+      vi: Hoi lai va xac nhan
+    objective:
+      ja: 分からないときに、聞き返して確認できる。
+      en: Ask someone to repeat an instruction and confirm it.
+      vi: Co the nho nguoi khac noi lai huong dan va xac nhan.
+    phrases:
+      - id: p01
+        sort_order: 1
+        japanese: 分かりません。
+        kana: わかりません。
+        translation:
+          ja: 分かりません。
+          en: I do not understand.
+          vi: Toi khong hieu.
+        note:
+          ja: 分からないとき、すぐに言います。
+          en: Say this immediately when you do not understand.
+          vi: Hay noi ngay khi ban khong hieu.
+        audio: ask-confirm/p01.mp3
+      - id: p02
+        sort_order: 2
+        japanese: もう一度お願いします。
+        kana: もういちど おねがいします。
+        translation:
+          ja: もう一度お願いします。
+          en: Please say it again.
+          vi: Xin hay noi lai mot lan nua.
+        note:
+          ja: 聞き取れなかったときに使います。
+          en: Use this when you could not hear clearly.
+          vi: Dung khi ban khong nghe ro.
+        audio: ask-confirm/p02.mp3
+    dialogues:
+      - id: d01
+        title:
+          ja: 指示を聞き返す
+          en: Asking again
+          vi: Hoi lai huong dan
+        lines:
+          - id: dl01
+            speaker: supervisor
+            japanese: この箱を入口へ持ってきてください。
+            kana: この はこを いりぐちへ もってきて ください。
+            translation:
+              ja: この箱を入口へ持ってきてください。
+              en: Please bring this box to the entrance.
+              vi: Hay mang thung nay den loi vao.
+          - id: dl02
+            speaker: learner
+            japanese: すみません。もう一度お願いします。
+            kana: すみません。もういちど おねがいします。
+            translation:
+              ja: すみません。もう一度お願いします。
+              en: Excuse me. Please say it again.
+              vi: Xin loi. Xin hay noi lai mot lan nua.
+    quizzes:
+      - id: q01
+        kind: meaning
+        option_locale: learner
+        source_phrase_id: p02
+        reuse_allowed: false
+        question_ja: 「もう一度お願いします。」の意味はどれですか。
+        question_kana: 「もういちど おねがいします。」の いみは どれですか。
+        question:
+          ja: 「もう一度お願いします。」の意味はどれですか。
+          en: What does this sentence mean?
+          vi: Cau nay co nghia la gi?
+        explanation:
+          ja: 聞き取れないときに、相手へ繰り返しをお願いします。
+          en: Use it to ask the other person to repeat.
+          vi: Dung de nho nguoi khac noi lai.
+        options:
+          - id: o01
+            correct: true
+            text:
+              ja: もう一回言ってください。
+              en: Please say it again.
+              vi: Xin hay noi lai.
+          - id: o02
+            correct: false
+            text:
+              ja: 少し待ってください。
+              en: Please wait a moment.
+              vi: Xin hay doi mot chut.
+          - id: o03
+            correct: false
+            text:
+              ja: ここへ置いてください。
+              en: Please put it here.
+              vi: Xin hay dat no o day.

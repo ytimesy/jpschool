@@ -14,8 +14,18 @@
         <span class="status-pill"><%= t('review.unresolved') %></span>
         <h3><%= i[:question] %></h3>
         <p class="muted"><%= t('review.wrong_count', count: i[:wrong_count]) %></p>
-        <p><%= t('review.answer', answer: 'Good morning.') %></p>
-        <%= link_to t('review.resolve'), review_path, class: 'secondary-action' %>
+        <form class="quiz-form" action="<%= review_path %>" method="get">
+          <p class="muted"><%= t('review.answer_prompt') %></p>
+          <div class="option-stack">
+            <% i[:options].each_with_index do |opt, idx| %>
+              <label class="option-row">
+                <input type="radio" name="review_answers[<%= i[:id] %>]" value="<%= idx + 1 %>">
+                <span><%= opt %></span>
+              </label>
+            <% end %>
+          </div>
+          <button type="submit" class="secondary-action"><%= t('review.submit') %></button>
+        </form>
       </article>
     <% end %>
   </div>

@@ -1,10 +1,16 @@
 ja:
   app:
-    name: "日本ワーカー"
+    name: "しごと日本語 / Work Nihongo"
+    subtitle: "Work Nihongo"
+    tagline: "働く人のための日本語学習"
     nav_label: "主要ナビゲーション"
     learner_nav_label: "学習者ナビゲーション"
     admin: "Admin"
-    copyright: "© 2026 日本ワーカー"
+    copyright: "© 2026 しごと日本語 / Work Nihongo"
+  demo:
+    label: "デモ表示"
+    title: "非公式プロトタイプ"
+    body: "表示中の利用者名と学習履歴は架空データです。"
   nav:
     dashboard: "ダッシュボード"
     users: "利用者"
@@ -36,7 +42,7 @@ ja:
     in_progress: "学習中"
     not_started: "未着手"
   login:
-    screen: "S-01 ログイン"
+    screen: "ログイン"
     title: "しごと日本語へログイン"
     description: "会社から受け取ったログインIDとパスワードを入力してください。"
     login_id: "ログインID"
@@ -44,7 +50,7 @@ ja:
     submit: "ログイン"
     forgot: "パスワードを忘れたときは、管理者に連絡してください。"
   initial_setup:
-    screen: "S-02 初回設定"
+    screen: "初回設定"
     title: "はじめての設定"
     description: "学習を始める前に、表示言語を選び、仮パスワードを変更します。"
     confirm_password: "もう一度入力"
@@ -52,7 +58,7 @@ ja:
     policy_body: "このアプリは職場で使う日本語の学習状況を保存します。学習履歴は教育担当者が確認します。"
     submit: "設定を完了する"
   home:
-    screen: "S-10 ホーム"
+    screen: "ホーム"
     hello: "こんにちは"
     name_suffix: "さん"
     next_lesson: "次に学ぶ"
@@ -65,8 +71,8 @@ ja:
     restart: "最初から見直す"
   lessons:
     course: "仕事の基本"
-    screen_index: "S-20 レッスン一覧"
-    screen_show: "S-21 レッスン詳細"
+    screen_index: "レッスン一覧"
+    screen_show: "レッスン詳細"
     learn: "学ぶ"
     lesson: "レッスン"
     view: "レッスンを見る"
@@ -123,6 +129,10 @@ ja:
       title: "遅刻・欠勤・体調"
       description: "遅刻、欠勤、けが、体調不良を連絡する"
       objective: "遅刻や体調不良を職場へ連絡できる。"
+    commute_daily:
+      title: "通勤・生活連絡"
+      description: "交通遅延、住所変更、生活連絡を伝える"
+      objective: "勤務に関係する生活上の連絡を短く伝えられる。"
     hospital_disaster:
       title: "病院・災害・緊急連絡"
       description: "病院、地震、火事、連絡先を伝える"
@@ -131,7 +141,7 @@ ja:
     note_primary: "職場で必要な場面ですぐに使う表現です。"
     note_secondary: "分からないときは、短く丁寧に伝えます。"
   quiz:
-    screen: "S-22 小テスト"
+    screen: "小テスト"
     title: "小テスト"
     question_count: "問題 %{current} / %{total}"
     pass_line: "80点で合格"
@@ -140,14 +150,15 @@ ja:
     question_2: "「よろしくお願いします」の意味は？"
     options_1:
       - "おやすみなさい"
-      - "Good morning"
+      - "おはようございます"
       - "ありがとうございます"
     options_2:
       - "Nice to meet you"
       - "See you"
       - "Sorry"
     submit: "回答する"
-    result_screen: "S-23 結果"
+    option_locale_badge: "選択肢言語: %{option_locale}"
+    result_screen: "結果"
     result_title: "小テスト結果"
     score: "%{score}点"
     correct_count: "%{correct} / %{total}問 正解"
@@ -160,15 +171,15 @@ ja:
     retry: "再挑戦"
     next_lesson: "次のレッスンへ"
   review:
-    screen: "S-30 復習"
+    screen: "復習"
     order: "新しい間違い順"
     title: "復習"
     unresolved: "未解決"
     wrong_count: "間違え回数: %{count}"
-    answer: "正解: %{answer}"
-    resolve: "解決済みにする"
+    answer_prompt: "回答すると、正解した場合だけ自動で解決済みになります。"
+    submit: "復習に回答する"
   progress:
-    screen: "S-40 進捗"
+    screen: "進捗"
     label: "学習状況"
     title: "進捗"
     last_learning: "最終学習 9/1 08:28"
@@ -178,7 +189,7 @@ ja:
     lesson: "レッスン"
     status: "状態"
   settings:
-    screen: "S-50 設定"
+    screen: "設定"
     title: "設定"
   admin:
     dashboard: "ダッシュボード"

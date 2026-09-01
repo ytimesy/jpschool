@@ -1,10 +1,16 @@
 zh:
   app:
-    name: "日本ワーカー"
+    name: "しごと日本語 / Work Nihongo"
+    subtitle: "Work Nihongo"
+    tagline: "面向工作者的日语学习"
     nav_label: "主要导航"
     learner_nav_label: "学习者导航"
     admin: "Admin"
-    copyright: "© 2026 日本ワーカー"
+    copyright: "© 2026 しごと日本語 / Work Nihongo"
+  demo:
+    label: "演示提示"
+    title: "非正式原型"
+    body: "这里显示的学习者姓名和学习记录均为虚构演示数据。"
   nav:
     dashboard: "仪表板"
     users: "用户"
@@ -36,7 +42,7 @@ zh:
     in_progress: "学习中"
     not_started: "未开始"
   login:
-    screen: "S-01 登录"
+    screen: "登录"
     title: "登录 Work Nihongo"
     description: "请输入公司发给你的登录ID和密码。"
     login_id: "登录ID"
@@ -44,7 +50,7 @@ zh:
     submit: "登录"
     forgot: "如果忘记密码，请联系管理员。"
   initial_setup:
-    screen: "S-02 初始设置"
+    screen: "初始设置"
     title: "首次设置"
     description: "开始学习前，请选择显示语言并更改临时密码。"
     confirm_password: "再次输入"
@@ -52,7 +58,7 @@ zh:
     policy_body: "本应用会保存你的职场日语学习进度。教育负责人可以查看你的学习记录。"
     submit: "完成设置"
   home:
-    screen: "S-10 首页"
+    screen: "首页"
     hello: "你好"
     name_suffix: ""
     next_lesson: "下一课"
@@ -65,8 +71,8 @@ zh:
     restart: "从第一课重新看"
   lessons:
     course: "职场基础"
-    screen_index: "S-20 课程列表"
-    screen_show: "S-21 课程详情"
+    screen_index: "课程列表"
+    screen_show: "课程详情"
     learn: "学习"
     lesson: "课程"
     view: "查看课程"
@@ -123,6 +129,10 @@ zh:
       title: "迟到、缺勤、身体状况"
       description: "联系迟到、请假、受伤或身体不适"
       objective: "能够向职场联系迟到或身体不适。"
+    commute_daily:
+      title: "通勤和生活联系"
+      description: "说明交通延误、地址变更和日常联系"
+      objective: "能够简短说明与工作有关的生活事项。"
     hospital_disaster:
       title: "医院、灾害、紧急联系"
       description: "表达医院、地震、火灾和联系方式"
@@ -131,7 +141,7 @@ zh:
     note_primary: "这是可以在职场常见场景中马上使用的表达。"
     note_secondary: "不明白时，请简短并礼貌地说明。"
   quiz:
-    screen: "S-22 小测验"
+    screen: "小测验"
     title: "小测验"
     question_count: "问题 %{current} / %{total}"
     pass_line: "80分合格"
@@ -147,7 +157,8 @@ zh:
       - "再见"
       - "对不起"
     submit: "回答"
-    result_screen: "S-23 结果"
+    option_locale_badge: "选项语言: %{option_locale}"
+    result_screen: "结果"
     result_title: "小测验结果"
     score: "%{score}分"
     correct_count: "答对 %{correct} / %{total} 题"
@@ -160,15 +171,15 @@ zh:
     retry: "重新挑战"
     next_lesson: "下一课"
   review:
-    screen: "S-30 复习"
+    screen: "复习"
     order: "新的错题优先"
     title: "复习"
     unresolved: "未解决"
     wrong_count: "错误次数: %{count}"
-    answer: "答案: %{answer}"
-    resolve: "标记为已解决"
+    answer_prompt: "请回答复习题。只有答对时才会自动解决。"
+    submit: "回答复习"
   progress:
-    screen: "S-40 进度"
+    screen: "进度"
     label: "学习情况"
     title: "进度"
     last_learning: "最后学习 9/1 08:28"
@@ -178,7 +189,7 @@ zh:
     lesson: "课程"
     status: "状态"
   settings:
-    screen: "S-50 设置"
+    screen: "设置"
     title: "设置"
   admin:
     dashboard: "仪表板"

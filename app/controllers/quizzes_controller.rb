@@ -3,8 +3,8 @@ class QuizzesController < ApplicationController
     # sample quiz for lesson
     @lesson_id = params[:lesson_id]
     @questions = [
-      { id: 1, question: I18n.t('quiz.question_1'), options: I18n.t('quiz.options_1'), answer: 2 },
-      { id: 2, question: I18n.t('quiz.question_2'), options: I18n.t('quiz.options_2'), answer: 1 }
+      { id: 1, question: I18n.t('quiz.question_1'), option_locale: 'learner', options: I18n.t('quiz.options_1'), answer: 2 },
+      { id: 2, question: I18n.t('quiz.question_2'), option_locale: 'learner', options: I18n.t('quiz.options_2'), answer: 1 }
     ]
   end
 

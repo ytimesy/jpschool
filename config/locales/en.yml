@@ -1,10 +1,16 @@
 en:
   app:
-    name: "日本ワーカー"
+    name: "しごと日本語 / Work Nihongo"
+    subtitle: "Work Nihongo"
+    tagline: "Japanese for working life"
     nav_label: "Main navigation"
     learner_nav_label: "Learner navigation"
     admin: "Admin"
-    copyright: "© 2026 日本ワーカー"
+    copyright: "© 2026 しごと日本語 / Work Nihongo"
+  demo:
+    label: "Demo notice"
+    title: "Unofficial prototype"
+    body: "The learner names and learning history shown here are fictional demo data."
   nav:
     dashboard: "Dashboard"
     users: "Users"
@@ -36,7 +42,7 @@ en:
     in_progress: "In progress"
     not_started: "Not started"
   login:
-    screen: "S-01 Login"
+    screen: "Login"
     title: "Log in to Work Nihongo"
     description: "Enter the login ID and password you received from your company."
     login_id: "Login ID"
@@ -44,7 +50,7 @@ en:
     submit: "Log in"
     forgot: "If you forgot your password, contact your administrator."
   initial_setup:
-    screen: "S-02 Initial setup"
+    screen: "Initial setup"
     title: "First-time setup"
     description: "Choose your display language and change the temporary password before learning."
     confirm_password: "Enter it again"
@@ -52,7 +58,7 @@ en:
     policy_body: "This app saves your learning progress for workplace Japanese. Education staff can view your progress."
     submit: "Finish setup"
   home:
-    screen: "S-10 Home"
+    screen: "Home"
     hello: "Hello"
     name_suffix: ""
     next_lesson: "Next lesson"
@@ -65,8 +71,8 @@ en:
     restart: "Review from the first lesson"
   lessons:
     course: "Workplace Basics"
-    screen_index: "S-20 Lesson list"
-    screen_show: "S-21 Lesson detail"
+    screen_index: "Lesson list"
+    screen_show: "Lesson detail"
     learn: "Learn"
     lesson: "Lesson"
     view: "Open lesson"
@@ -123,6 +129,10 @@ en:
       title: "Late, Absent, Health"
       description: "Contact work about lateness, absence, injury, or illness"
       objective: "Contact the workplace about lateness or health problems."
+    commute_daily:
+      title: "Commute and Daily Contact"
+      description: "Report train delays, address changes, and daily notices"
+      objective: "Briefly share daily information related to work."
     hospital_disaster:
       title: "Hospital, Disaster, Emergency"
       description: "Say hospital, earthquake, fire, and contact"
@@ -131,7 +141,7 @@ en:
     note_primary: "Use this expression right away in common workplace situations."
     note_secondary: "When you do not understand, say it briefly and politely."
   quiz:
-    screen: "S-22 Quiz"
+    screen: "Quiz"
     title: "Quiz"
     question_count: "Question %{current} / %{total}"
     pass_line: "Pass at 80 points"
@@ -147,7 +157,8 @@ en:
       - "See you"
       - "Sorry"
     submit: "Answer"
-    result_screen: "S-23 Result"
+    option_locale_badge: "Option locale: %{option_locale}"
+    result_screen: "Result"
     result_title: "Quiz result"
     score: "%{score} points"
     correct_count: "%{correct} / %{total} correct"
@@ -160,15 +171,15 @@ en:
     retry: "Try again"
     next_lesson: "Next lesson"
   review:
-    screen: "S-30 Review"
+    screen: "Review"
     order: "Newest mistakes first"
     title: "Review"
     unresolved: "Unresolved"
     wrong_count: "Mistakes: %{count}"
-    answer: "Answer: %{answer}"
-    resolve: "Mark resolved"
+    answer_prompt: "Answer the review question. It is resolved only when the answer is correct."
+    submit: "Answer review"
   progress:
-    screen: "S-40 Progress"
+    screen: "Progress"
     label: "Learning status"
     title: "Progress"
     last_learning: "Last studied Sep 1, 08:28"
@@ -178,7 +189,7 @@ en:
     lesson: "Lesson"
     status: "Status"
   settings:
-    screen: "S-50 Settings"
+    screen: "Settings"
     title: "Settings"
   admin:
     dashboard: "Dashboard"

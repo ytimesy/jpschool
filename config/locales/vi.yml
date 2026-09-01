@@ -1,10 +1,16 @@
 vi:
   app:
-    name: "日本ワーカー"
+    name: "しごと日本語 / Work Nihongo"
+    subtitle: "Work Nihongo"
+    tagline: "Tiếng Nhật cho người đi làm"
     nav_label: "Điều hướng chính"
     learner_nav_label: "Điều hướng học viên"
     admin: "Admin"
-    copyright: "© 2026 日本ワーカー"
+    copyright: "© 2026 しごと日本語 / Work Nihongo"
+  demo:
+    label: "Thông báo demo"
+    title: "Nguyên mẫu không chính thức"
+    body: "Tên học viên và lịch sử học tập hiển thị là dữ liệu demo hư cấu."
   nav:
     dashboard: "Bảng điều khiển"
     users: "Người dùng"
@@ -36,7 +42,7 @@ vi:
     in_progress: "Đang học"
     not_started: "Chưa học"
   login:
-    screen: "S-01 Đăng nhập"
+    screen: "Đăng nhập"
     title: "Đăng nhập Work Nihongo"
     description: "Nhập ID đăng nhập và mật khẩu bạn nhận từ công ty."
     login_id: "ID đăng nhập"
@@ -44,7 +50,7 @@ vi:
     submit: "Đăng nhập"
     forgot: "Nếu quên mật khẩu, hãy liên hệ quản trị viên."
   initial_setup:
-    screen: "S-02 Thiết lập ban đầu"
+    screen: "Thiết lập ban đầu"
     title: "Thiết lập lần đầu"
     description: "Chọn ngôn ngữ hiển thị và đổi mật khẩu tạm thời trước khi học."
     confirm_password: "Nhập lại"
@@ -52,7 +58,7 @@ vi:
     policy_body: "Ứng dụng này lưu tiến độ học tiếng Nhật nơi làm việc. Người phụ trách đào tạo có thể xem tiến độ học của bạn."
     submit: "Hoàn tất thiết lập"
   home:
-    screen: "S-10 Trang chủ"
+    screen: "Trang chủ"
     hello: "Xin chào"
     name_suffix: ""
     next_lesson: "Bài tiếp theo"
@@ -65,8 +71,8 @@ vi:
     restart: "Xem lại từ bài đầu"
   lessons:
     course: "Cơ bản nơi làm việc"
-    screen_index: "S-20 Danh sách bài học"
-    screen_show: "S-21 Chi tiết bài học"
+    screen_index: "Danh sách bài học"
+    screen_show: "Chi tiết bài học"
     learn: "Học"
     lesson: "Bài học"
     view: "Mở bài học"
@@ -123,6 +129,10 @@ vi:
       title: "Đi muộn, nghỉ, sức khỏe"
       description: "Liên hệ về đi muộn, nghỉ, bị thương hoặc ốm"
       objective: "Có thể liên hệ nơi làm việc khi đi muộn hoặc không khỏe."
+    commute_daily:
+      title: "Đi lại và liên hệ hằng ngày"
+      description: "Báo trễ tàu, đổi địa chỉ và thông báo sinh hoạt"
+      objective: "Có thể thông báo ngắn gọn các việc sinh hoạt liên quan đến công việc."
     hospital_disaster:
       title: "Bệnh viện, thiên tai, khẩn cấp"
       description: "Nói bệnh viện, động đất, cháy và liên hệ"
@@ -131,7 +141,7 @@ vi:
     note_primary: "Đây là cách nói có thể dùng ngay trong tình huống nơi làm việc."
     note_secondary: "Khi không hiểu, hãy nói ngắn gọn và lịch sự."
   quiz:
-    screen: "S-22 Kiểm tra"
+    screen: "Kiểm tra"
     title: "Kiểm tra"
     question_count: "Câu %{current} / %{total}"
     pass_line: "Đạt từ 80 điểm"
@@ -147,7 +157,8 @@ vi:
       - "Hẹn gặp lại"
       - "Xin lỗi"
     submit: "Trả lời"
-    result_screen: "S-23 Kết quả"
+    option_locale_badge: "Ngôn ngữ lựa chọn: %{option_locale}"
+    result_screen: "Kết quả"
     result_title: "Kết quả kiểm tra"
     score: "%{score} điểm"
     correct_count: "Đúng %{correct} / %{total} câu"
@@ -160,15 +171,15 @@ vi:
     retry: "Làm lại"
     next_lesson: "Bài tiếp theo"
   review:
-    screen: "S-30 Ôn tập"
+    screen: "Ôn tập"
     order: "Lỗi mới nhất trước"
     title: "Ôn tập"
     unresolved: "Chưa xong"
     wrong_count: "Số lần sai: %{count}"
-    answer: "Đáp án: %{answer}"
-    resolve: "Đánh dấu đã xong"
+    answer_prompt: "Hãy trả lời câu ôn tập. Chỉ tự động hoàn tất khi trả lời đúng."
+    submit: "Trả lời ôn tập"
   progress:
-    screen: "S-40 Tiến độ"
+    screen: "Tiến độ"
     label: "Tình trạng học"
     title: "Tiến độ"
     last_learning: "Học gần nhất 9/1 08:28"
@@ -178,7 +189,7 @@ vi:
     lesson: "Bài học"
     status: "Trạng thái"
   settings:
-    screen: "S-50 Cài đặt"
+    screen: "Cài đặt"
     title: "Cài đặt"
   admin:
     dashboard: "Bảng điều khiển"

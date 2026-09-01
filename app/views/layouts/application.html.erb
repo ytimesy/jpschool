@@ -13,10 +13,11 @@
     <header class="site-header <%= 'admin-header' if admin_area? %>">
       <div class="shell header-inner">
         <div>
-          <p class="eyebrow"><%= admin_area? ? t('app.admin') : 'Work Nihongo' %></p>
+          <p class="eyebrow"><%= admin_area? ? t('app.admin') : t('app.subtitle') %></p>
           <h1><a href="<%= admin_area? ? admin_root_path : root_path %>"><%= t('app.name') %></a></h1>
         </div>
-        <nav class="top-nav" aria-label="<%= t('app.nav_label') %>">
+        <% unless public_page? %>
+          <nav class="top-nav" aria-label="<%= t('app.nav_label') %>">
           <% if admin_area? %>
             <%= link_to 'ダッシュボード', admin_root_path %>
             <%= link_to '利用者', admin_users_path %>
@@ -29,7 +30,8 @@
             <%= link_to t('nav.progress'), progress_path %>
             <%= link_to t('nav.settings'), settings_path %>
           <% end %>
-        </nav>
+          </nav>
+        <% end %>
         <% unless admin_area? %>
           <%= form_with url: request.path, method: :get, class: 'locale-switcher' do %>
             <label>
@@ -47,14 +49,18 @@
     </header>
 
     <main class="shell page-main <%= 'admin-main' if admin_area? %>">
+      <aside class="demo-banner" aria-label="<%= t('demo.label') %>">
+        <strong><%= t('demo.title') %></strong>
+        <span><%= t('demo.body') %></span>
+      </aside>
       <%= yield %>
     </main>
 
     <footer class="site-footer">
       <div class="shell footer-inner">
         <div class="footer-brand">
-          <p class="eyebrow">日本ワーカー</p>
-          <strong>働く人のための日本語学習</strong>
+          <p class="eyebrow"><%= t('app.name') %></p>
+          <strong><%= t('app.tagline') %></strong>
           <span>制作会社: ボイジャーインターナショナル株式会社</span>
         </div>
         <nav class="footer-nav" aria-label="フッターナビゲーション">
@@ -65,7 +71,7 @@
       </div>
     </footer>
 
-    <%= render 'shared/bottom_nav' unless admin_area? %>
+    <%= render 'shared/bottom_nav' unless admin_area? || public_page? %>
 
     <script src="/js/site.js"></script>
   </body>

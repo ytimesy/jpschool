@@ -20,6 +20,10 @@
 
   <div class="sticky-actions">
     <%= link_to t('quiz.retry'), lesson_quiz_path(params[:lesson_id]), class: 'secondary-action' %>
-    <%= link_to t('quiz.next_lesson'), lesson_path(2), class: 'primary-action' %>
+    <% if @next_lesson %>
+      <%= link_to t('quiz.next_lesson'), lesson_path(@next_lesson[:id]), class: 'primary-action' %>
+    <% else %>
+      <%= link_to t('nav.lessons'), lessons_path, class: 'primary-action' %>
+    <% end %>
   </div>
 </section>

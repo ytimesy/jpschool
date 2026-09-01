@@ -26,6 +26,7 @@ class QuizzesController < ApplicationController
     @score = (correct.to_f / @questions.length * 100).to_i
     @correct = correct
     @total = @questions.length
+    @next_lesson = next_lesson
   end
 
   private
@@ -63,5 +64,10 @@ class QuizzesController < ApplicationController
     return 0 if index.negative?
 
     [index, quiz_questions.length - 1].min
+  end
+
+  def next_lesson
+    lesson_id = params[:lesson_id].to_i
+    demo_lessons.find { |lesson| lesson[:id] > lesson_id }
   end
 end

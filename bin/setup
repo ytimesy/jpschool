@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+echo "==> Installing gems"
+bundle install --jobs 4 --retry 3
+
+echo "==> Setting up database"
+bin/rails db:prepare
+
+echo "==> Done"

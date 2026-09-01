@@ -1,0 +1,8 @@
+/log/
+/tmp/
+/node_modules/
+/coverage/
+/vendor/bundle/
+.env
+/public/packs/
+/public/assets/

@@ -68,7 +68,15 @@ docker compose up --build
 - Service: `jpschool`
 - Region: `europe-west1`
 - Public URL: `https://jpschool-7cobj7xvjq-ew.a.run.app`
-- Latest verified revision: `jpschool-00011-hut`
+
+現在の公開リビジョンとトラフィックは次で確認します。
+
+```sh
+gcloud run services describe jpschool \
+  --project web-serv-493701 \
+  --region europe-west1 \
+  --format="value(status.latestReadyRevisionName,status.traffic[0].revisionName,status.traffic[0].percent,status.url)"
+```
 
 手動デプロイ例:
 

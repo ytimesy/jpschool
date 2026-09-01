@@ -1,8 +1,37 @@
-<section class="prose">
-  <h2>ようこそ — しごと日本語</h2>
-  <p>このアプリは日本の職場で使う実践的な日本語を学ぶための学習プラットフォーム（MVP）です。</p>
+<section class="learner-home">
+  <div class="screen-label"><%= t('home.screen') %></div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow"><%= t('home.hello') %></p>
+      <h2><%= demo_user[:display_name] %><%= t('home.name_suffix') %></h2>
+    </div>
+    <span class="status-pill"><%= t('statuses.in_progress') %></span>
+  </div>
 
-  <div class="mt-6">
-    <a href="/lessons" class="px-4 py-2 bg-indigo-600 text-white rounded">教材一覧をみる</a>
+  <article class="focus-card">
+    <p class="eyebrow"><%= t('home.next_lesson') %></p>
+    <h3><%= t('home.next_title') %></h3>
+    <p><%= t('home.next_description') %></p>
+    <div class="meta-row">
+      <span><%= t('common.minutes', count: 8) %></span>
+      <span><%= t('home.resume') %></span>
+    </div>
+    <%= link_to t('home.start_resume'), lesson_path(3), class: 'primary-action' %>
+  </article>
+
+  <div class="summary-grid">
+    <article>
+      <span><%= t('home.completed') %></span>
+      <strong><%= demo_user[:completed_count] %> / 12</strong>
+    </article>
+    <article>
+      <span><%= t('nav.review') %></span>
+      <strong><%= t('common.items_count', count: demo_user[:review_count]) %></strong>
+    </article>
+  </div>
+
+  <div class="action-row">
+    <%= link_to t('home.review_action'), review_path, class: 'secondary-action' %>
+    <%= link_to t('home.restart'), lesson_path(1), class: 'secondary-action' %>
   </div>
 </section>

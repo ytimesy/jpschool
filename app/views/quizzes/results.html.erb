@@ -1,8 +1,25 @@
-<div class="prose">
-  <h2>結果</h2>
-  <p>スコア: <strong><%= @score %></strong> 点 （<%= @correct %> / <%= @total %>）</p>
-  <div class="mt-4">
-    <a href="/lessons" class="px-4 py-2 bg-gray-200 rounded">レッスンに戻る</a>
-    <a href="/lessons/<%= params[:lesson_id] %>/quiz" class="px-4 py-2 bg-indigo-600 text-white rounded ml-2">再挑戦</a>
+<section class="result-screen">
+  <div class="screen-label"><%= t('quiz.result_screen') %></div>
+  <article class="score-card">
+    <p class="eyebrow"><%= t('quiz.result_title') %></p>
+    <h2><%= t('quiz.score', score: @score) %></h2>
+    <p><%= t('quiz.correct_count', correct: @correct, total: @total) %></p>
+    <span class="status-pill"><%= @score >= 80 ? t('quiz.passed') : t('quiz.retry_needed') %></span>
+  </article>
+
+  <div class="result-list">
+    <article>
+      <strong><%= t('quiz.correct') %></strong>
+      <p><%= t('quiz.correct_body') %></p>
+    </article>
+    <article>
+      <strong><%= t('quiz.explanation') %></strong>
+      <p><%= t('quiz.explanation_body') %></p>
+    </article>
   </div>
-</div>
+
+  <div class="sticky-actions">
+    <%= link_to t('quiz.retry'), lesson_quiz_path(params[:lesson_id]), class: 'secondary-action' %>
+    <%= link_to t('quiz.next_lesson'), lesson_path(2), class: 'primary-action' %>
+  </div>
+</section>

@@ -3,8 +3,8 @@ class QuizzesController < ApplicationController
     # sample quiz for lesson
     @lesson_id = params[:lesson_id]
     @questions = [
-      { id: 1, question: '「おはようございます」の意味は？', options: ['Good night','Good morning','Thank you'], answer: 2 },
-      { id: 2, question: '「よろしくお願いします」の意味は？', options: ['Nice to meet you','See you','Sorry'], answer: 1 }
+      { id: 1, question: I18n.t('quiz.question_1'), options: I18n.t('quiz.options_1'), answer: 2 },
+      { id: 2, question: I18n.t('quiz.question_2'), options: I18n.t('quiz.options_2'), answer: 1 }
     ]
   end
 
@@ -12,8 +12,9 @@ class QuizzesController < ApplicationController
     # simple scoring logic from params
     correct = 0
     answers = params[:answers] || {}
-    answers.each do |k,v|
-      correct += 1 if v.to_i ==  (k.to_i == 1 ? 2 : 1) # align with sample answers above
+    answer_key = { 1 => 2, 2 => 1 }
+    answers.each do |question_id, selected_option|
+      correct += 1 if selected_option.to_i == answer_key[question_id.to_i]
     end
     @score = (correct.to_f / 2 * 100).to_i
     @correct = correct

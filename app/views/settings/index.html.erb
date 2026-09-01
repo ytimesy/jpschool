@@ -1,8 +1,32 @@
-<div class="prose">
-  <h2>設定</h2>
-  <div class="mt-4">
-    <a href="#" class="block p-3 bg-white border rounded mb-2">表示言語を変更</a>
-    <a href="#" class="block p-3 bg-white border rounded mb-2">パスワード変更</a>
-    <a href="#" class="block p-3 bg-white border rounded">ログアウト</a>
+<section class="settings-screen">
+  <div class="screen-label"><%= t('settings.screen') %></div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow"><%= demo_user[:display_name] %></p>
+      <h2><%= t('settings.title') %></h2>
+    </div>
   </div>
-</div>
+
+  <form class="form-stack" action="<%= settings_path %>" method="get">
+    <label>
+      <span><%= t('common.locale') %></span>
+      <select name="locale">
+        <option value="ja" <%= 'selected' if current_locale == :ja %>><%= t('common.japanese') %></option>
+        <option value="en" <%= 'selected' if current_locale == :en %>><%= t('common.english') %></option>
+        <option value="vi" <%= 'selected' if current_locale == :vi %>><%= t('common.vietnamese') %></option>
+        <option value="zh" <%= 'selected' if current_locale == :zh %>><%= t('common.chinese') %></option>
+      </select>
+    </label>
+    <label>
+      <span><%= t('common.current_password') %></span>
+      <input type="password">
+    </label>
+    <label>
+      <span><%= t('common.new_password') %></span>
+      <input type="password">
+    </label>
+    <button type="submit" class="primary-action"><%= t('common.save') %></button>
+  </form>
+
+  <%= link_to t('common.logout'), login_path, class: 'danger-action' %>
+</section>

@@ -1,9 +1,22 @@
-<div class="prose">
-  <h2>復習一覧</h2>
-  <% @items.each do |i| %>
-    <div class="p-3 bg-white border rounded mb-2">
-      <div class="font-medium"><%= i[:question] %></div>
-      <div class="text-sm text-gray-500">間違え回数: <%= i[:wrong_count] %></div>
+<section class="review-screen">
+  <div class="screen-label"><%= t('review.screen') %></div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow"><%= t('review.order') %></p>
+      <h2><%= t('review.title') %></h2>
     </div>
-  <% end %>
-</div>
+    <span class="status-pill"><%= t('common.items_count', count: @items.length) %></span>
+  </div>
+
+  <div class="review-list">
+    <% @items.each do |i| %>
+      <article>
+        <span class="status-pill"><%= t('review.unresolved') %></span>
+        <h3><%= i[:question] %></h3>
+        <p class="muted"><%= t('review.wrong_count', count: i[:wrong_count]) %></p>
+        <p><%= t('review.answer', answer: 'Good morning.') %></p>
+        <%= link_to t('review.resolve'), review_path, class: 'secondary-action' %>
+      </article>
+    <% end %>
+  </div>
+</section>

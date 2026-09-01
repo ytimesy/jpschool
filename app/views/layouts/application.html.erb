@@ -1,34 +1,71 @@
 <!doctype html>
-<html lang="ja">
+<html lang="<%= current_locale %>">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <title>しごと日本語 / Work Nihongo</title>
+    <title><%= t('app.name') %></title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>
   </head>
-  <body class="bg-gray-50 text-gray-900">
-    <header class="bg-white shadow">
-      <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-        <h1 class="text-lg font-semibold"><a href="/">しごと日本語</a></h1>
-        <nav>
-          <a href="/" class="mr-4 text-sm text-gray-700">ホーム</a>
-          <a href="/lessons" class="text-sm text-gray-700">教材一覧</a>
+  <body class="app-body">
+    <header class="site-header <%= 'admin-header' if admin_area? %>">
+      <div class="shell header-inner">
+        <div>
+          <p class="eyebrow"><%= admin_area? ? t('app.admin') : 'Work Nihongo' %></p>
+          <h1><a href="<%= admin_area? ? admin_root_path : root_path %>"><%= t('app.name') %></a></h1>
+        </div>
+        <nav class="top-nav" aria-label="<%= t('app.nav_label') %>">
+          <% if admin_area? %>
+            <%= link_to 'ダッシュボード', admin_root_path %>
+            <%= link_to '利用者', admin_users_path %>
+            <%= link_to '教材', admin_lessons_path %>
+            <%= link_to '進捗', admin_progress_path %>
+          <% else %>
+            <%= link_to t('nav.home'), root_path %>
+            <%= link_to t('nav.learn'), lessons_path %>
+            <%= link_to t('nav.review'), review_path %>
+            <%= link_to t('nav.progress'), progress_path %>
+            <%= link_to t('nav.settings'), settings_path %>
+          <% end %>
         </nav>
+        <% unless admin_area? %>
+          <%= form_with url: request.path, method: :get, class: 'locale-switcher' do %>
+            <label>
+              <span><%= t('common.locale') %></span>
+              <select name="locale" onchange="this.form.submit()">
+                <option value="ja" <%= 'selected' if current_locale == :ja %>><%= t('common.japanese') %></option>
+                <option value="en" <%= 'selected' if current_locale == :en %>><%= t('common.english') %></option>
+                <option value="vi" <%= 'selected' if current_locale == :vi %>><%= t('common.vietnamese') %></option>
+                <option value="zh" <%= 'selected' if current_locale == :zh %>><%= t('common.chinese') %></option>
+              </select>
+            </label>
+          <% end %>
+        <% end %>
       </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 py-8">
+    <main class="shell page-main <%= 'admin-main' if admin_area? %>">
       <%= yield %>
     </main>
 
-    <footer class="border-t">
-      <div class="max-w-5xl mx-auto px-4 py-6 text-sm text-gray-600">© 2026 しごと日本語</div>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div class="footer-brand">
+          <p class="eyebrow">日本ワーカー</p>
+          <strong>働く人のための日本語学習</strong>
+          <span>制作会社: ボイジャーインターナショナル株式会社</span>
+        </div>
+        <nav class="footer-nav" aria-label="フッターナビゲーション">
+          <%= link_to '基本方針', basic_policy_path %>
+          <%= link_to '利用規約', terms_path %>
+        </nav>
+        <div class="footer-copy"><%= t('app.copyright') %></div>
+      </div>
     </footer>
 
-    <%= render 'shared/bottom_nav' %>
+    <%= render 'shared/bottom_nav' unless admin_area? %>
 
     <script src="/js/site.js"></script>
   </body>

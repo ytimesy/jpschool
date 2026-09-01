@@ -1,4 +1,4 @@
-FROM ruby:3.2.2-alpine
+FROM ruby:3.3.9-alpine
 
 RUN apk add --no-cache build-base nodejs yarn postgresql-dev tzdata bash libxml2-dev libxslt-dev
 

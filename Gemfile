@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.3.9'
 
 gem 'rails', '~> 8.0'
 gem 'pg', '>= 1.0'
 gem 'puma'
 gem 'jbuilder'
+gem 'sprockets-rails'
 
 # Use Hotwire
 gem 'turbo-rails'

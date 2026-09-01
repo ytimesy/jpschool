@@ -1,0 +1,61 @@
+<section class="admin-users">
+  <div class="screen-label">A-20 利用者一覧・編集</div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow">アカウント管理</p>
+      <h2>利用者</h2>
+    </div>
+    <button type="button" class="primary-action compact">利用者を登録</button>
+  </div>
+
+  <div class="admin-toolbar">
+    <input type="search" value="工場" aria-label="利用者を検索">
+    <select aria-label="状態で絞り込み">
+      <option>すべての状態</option>
+      <option>有効</option>
+      <option>停止</option>
+    </select>
+    <button type="button" class="secondary-action">CSV登録</button>
+    <button type="button" class="secondary-action">テンプレート</button>
+  </div>
+
+  <div class="admin-grid">
+    <article class="table-card wide">
+      <table>
+        <thead>
+          <tr>
+            <th>ログインID</th>
+            <th>表示名</th>
+            <th>言語</th>
+            <th>部署・職種</th>
+            <th>状態</th>
+            <th>最終ログイン</th>
+            <th>最終学習</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user[:login_id] %></td>
+              <td><%= user[:display_name] %></td>
+              <td><%= user[:locale] %></td>
+              <td><%= user[:department] %> / <%= user[:job_type] %></td>
+              <td><span class="status-pill"><%= user[:status] %></span></td>
+              <td><%= user[:last_login] %></td>
+              <td><%= user[:last_learning] %></td>
+              <td><%= link_to '編集', admin_user_path(user[:login_id]), class: 'text-link' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="status-panel">
+      <h3>CSV登録プレビュー</h3>
+      <p class="muted">取込前に成功予定件数と失敗行の理由を確認します。</p>
+      <pre>login_id,display_name,locale,department,job_type
+A0001,Nguyen Van A,vi,工場1,製造</pre>
+    </article>
+  </div>
+</section>

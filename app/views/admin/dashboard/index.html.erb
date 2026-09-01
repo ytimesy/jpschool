@@ -1,0 +1,56 @@
+<section class="admin-dashboard">
+  <div class="screen-label">A-10 管理ダッシュボード</div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow">教育担当者</p>
+      <h2>管理ダッシュボード</h2>
+    </div>
+    <%= link_to '教材を確認する', admin_lessons_path, class: 'primary-action compact' %>
+  </div>
+
+  <div class="summary-grid admin-summary">
+    <article>
+      <span>有効な利用者</span>
+      <strong><%= @summary[:active_users] %></strong>
+    </article>
+    <article>
+      <span>今日の学習者</span>
+      <strong><%= @summary[:learners_today] %></strong>
+    </article>
+    <article>
+      <span>未学習者</span>
+      <strong><%= @summary[:not_started] %></strong>
+    </article>
+    <article>
+      <span>公開教材</span>
+      <strong><%= @summary[:published_lessons] %></strong>
+    </article>
+  </div>
+
+  <div class="admin-grid">
+    <article class="table-card">
+      <h3>直近の学習者</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>利用者</th>
+            <th>部署</th>
+            <th>最終学習</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Nguyen Van A</td><td>工場1</td><td>2026-09-01 08:28</td></tr>
+          <tr><td>Maria Santos</td><td>物流</td><td>2026-08-31 18:02</td></tr>
+          <tr><td>Tran Binh</td><td>工場2</td><td>2026-08-20 08:10</td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="status-panel">
+      <h3>教材状態</h3>
+      <p>公開済み <strong><%= @summary[:published_lessons] %></strong> 件</p>
+      <p>下書き <strong><%= @summary[:draft_lessons] %></strong> 件</p>
+      <p class="muted">翻訳不足と音声警告は教材一覧で確認します。</p>
+    </article>
+  </div>
+</section>

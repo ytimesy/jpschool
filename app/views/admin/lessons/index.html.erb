@@ -1,0 +1,37 @@
+<section class="admin-lessons">
+  <div class="screen-label">A-30 教材一覧</div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow">教材管理</p>
+      <h2>教材</h2>
+    </div>
+    <button type="button" class="primary-action compact">YAML検証</button>
+  </div>
+
+  <article class="table-card wide">
+    <table>
+      <thead>
+        <tr>
+          <th>版</th>
+          <th>レッスン名</th>
+          <th>翻訳状態</th>
+          <th>音声状態</th>
+          <th>公開状態</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @lessons.each do |lesson| %>
+          <tr>
+            <td><%= lesson[:version] %></td>
+            <td><%= lesson[:title] %></td>
+            <td><span class="status-pill"><%= lesson[:translation_status] %></span></td>
+            <td><span class="status-pill"><%= lesson[:audio_status] %></span></td>
+            <td><%= lesson[:published] ? '公開' : '非公開' %></td>
+            <td><%= link_to 'プレビュー', preview_admin_lesson_path(lesson[:id]), class: 'text-link' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </article>
+</section>

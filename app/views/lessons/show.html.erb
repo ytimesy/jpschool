@@ -1,25 +1,67 @@
-<div class="prose">
-  <h2><%= @lesson[:title] %></h2>
-  <p class="text-sm text-gray-600"><strong>目標:</strong> <%= @lesson[:objective] %></p>
+<section class="lesson-detail">
+  <div class="screen-label"><%= t('lessons.screen_show') %></div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow"><%= t('lessons.lesson') %> <%= @lesson[:id] %> / 12</p>
+      <h2><%= @lesson[:title] %></h2>
+      <% unless current_locale == :ja %>
+        <p class="kana-text"><%= @lesson[:japanese_title] %></p>
+      <% end %>
+    </div>
+    <span class="status-pill"><%= t('common.minutes', count: @lesson[:minutes]) %></span>
+  </div>
 
-  <div class="mt-4 space-y-4">
+  <div class="progress-track" aria-label="<%= t('nav.progress') %>">
+    <span style="width: 50%"></span>
+  </div>
+
+  <article class="objective-card">
+    <h3><%= t('lessons.objective') %></h3>
+    <p><%= @lesson[:objective] %></p>
+  </article>
+
+  <div class="phrase-stack">
     <% @lesson[:phrases].each do |p| %>
-      <div class="p-3 bg-white border rounded">
-        <div class="flex items-start justify-between">
+      <article class="phrase-card">
+        <div class="phrase-body">
           <div>
-            <div class="text-lg font-medium"><%= p[:japanese] %></div>
-            <div class="text-sm text-gray-500"><%= p[:kana] %></div>
-            <div class="text-sm text-gray-700 mt-2"><%= p[:translation][:en] %></div>
+            <p class="japanese-text"><%= p[:japanese] %></p>
+            <p class="kana-text"><%= p[:kana] %></p>
+            <p class="translation-text"><%= p[:translation][current_locale] || p[:translation][:en] || p[:translation][:ja] %></p>
+            <p class="muted"><%= p[:note] %></p>
           </div>
-          <div class="ml-4">
-            <audio data-audio-src="<%= p[:audio] || '#' %>" controls></audio>
+          <div class="audio-box">
+            <% if p[:audio].present? %>
+              <audio src="<%= p[:audio] %>" controls></audio>
+            <% else %>
+              <span><%= t('lessons.audio_missing') %></span>
+            <% end %>
+            <div class="speed-control" aria-label="<%= t('lessons.audio_missing') %>">
+              <button type="button">0.75x</button>
+              <button type="button" class="active">1.0x</button>
+            </div>
           </div>
         </div>
-      </div>
+      </article>
     <% end %>
   </div>
 
-  <div class="mt-6">
-    <a href="/lessons/<%= @lesson[:id] %>/quiz" class="px-4 py-2 bg-indigo-600 text-white rounded">小テストへ</a>
+  <article class="dialogue-card">
+    <h3><%= t('lessons.dialogue') %></h3>
+    <div class="dialogue-line">
+      <strong><%= t('lessons.senior') %></strong>
+      <p>この箱を入口へ持ってきてください。</p>
+      <p class="translation-text"><%= t('lessons.dialogue_senior') %></p>
+    </div>
+    <div class="dialogue-line">
+      <strong><%= t('lessons.learner') %></strong>
+      <p>はい。これでいいですか。</p>
+      <p class="translation-text"><%= t('lessons.dialogue_learner') %></p>
+    </div>
+  </article>
+
+  <div class="sticky-actions">
+    <%= link_to t('common.previous'), lessons_path, class: 'secondary-action' %>
+    <%= link_to t('lessons.quiz'), lesson_quiz_path(@lesson[:id]), class: 'primary-action' %>
   </div>
-</div>
+</section>

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+set -e
+
+mkdir -p tmp/pids log
+
+exec bundle exec puma -C config/puma.rb

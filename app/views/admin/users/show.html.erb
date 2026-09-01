@@ -1,0 +1,22 @@
+<section class="admin-user-detail">
+  <div class="screen-label">A-20 利用者編集</div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow"><%= @user[:login_id] %></p>
+      <h2><%= @user[:display_name] %></h2>
+    </div>
+    <span class="status-pill"><%= @user[:status] %></span>
+  </div>
+
+  <form class="form-grid" action="#" method="post">
+    <label><span>表示名</span><input type="text" value="<%= @user[:display_name] %>"></label>
+    <label><span>言語</span><select><option><%= @user[:locale] %></option></select></label>
+    <label><span>部署</span><input type="text" value="<%= @user[:department] %>"></label>
+    <label><span>職種</span><input type="text" value="<%= @user[:job_type] %>"></label>
+  </form>
+
+  <div class="action-row">
+    <button type="button" class="secondary-action">仮パスワード再発行</button>
+    <button type="button" class="danger-action">利用停止</button>
+  </div>
+</section>

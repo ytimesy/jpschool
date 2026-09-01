@@ -1,24 +1,24 @@
-<nav class="fixed bottom-0 left-0 right-0 bg-white border-t md:hidden">
-  <div class="max-w-5xl mx-auto flex justify-around py-2">
-    <a href="/" class="text-center text-sm">
-      <div>🏠</div>
-      <div>ホーム</div>
-    </a>
-    <a href="/lessons" class="text-center text-sm">
-      <div>📚</div>
-      <div>学ぶ</div>
-    </a>
-    <a href="/reviews" class="text-center text-sm">
-      <div>🔁</div>
-      <div>復習</div>
-    </a>
-    <a href="/progress" class="text-center text-sm">
-      <div>📊</div>
-      <div>進捗</div>
-    </a>
-    <a href="/settings" class="text-center text-sm">
-      <div>⚙️</div>
-      <div>設定</div>
-    </a>
+<nav class="bottom-nav" aria-label="<%= t('app.learner_nav_label') %>">
+  <div class="bottom-nav-inner">
+    <%= link_to root_path do %>
+      <span aria-hidden="true">H</span>
+      <strong><%= t('nav.home') %></strong>
+    <% end %>
+    <%= link_to lessons_path do %>
+      <span aria-hidden="true">L</span>
+      <strong><%= t('nav.learn') %></strong>
+    <% end %>
+    <%= link_to review_path do %>
+      <span aria-hidden="true">R</span>
+      <strong><%= t('nav.review') %></strong>
+    <% end %>
+    <%= link_to progress_path do %>
+      <span aria-hidden="true">P</span>
+      <strong><%= t('nav.progress') %></strong>
+    <% end %>
+    <%= link_to settings_path do %>
+      <span aria-hidden="true">S</span>
+      <strong><%= t('nav.settings') %></strong>
+    <% end %>
   </div>
 </nav>

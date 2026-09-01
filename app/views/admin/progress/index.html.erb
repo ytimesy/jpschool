@@ -1,0 +1,46 @@
+<section class="admin-progress">
+  <div class="screen-label">A-40 進捗一覧</div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow">学習状況</p>
+      <h2>進捗一覧</h2>
+    </div>
+    <button type="button" class="secondary-action">CSV出力 P1</button>
+  </div>
+
+  <div class="admin-toolbar">
+    <input type="search" value="工場" aria-label="進捗を検索">
+    <select aria-label="部署で絞り込み">
+      <option>すべての部署</option>
+      <option>工場1</option>
+      <option>物流</option>
+    </select>
+  </div>
+
+  <article class="table-card wide">
+    <table>
+      <thead>
+        <tr>
+          <th>利用者</th>
+          <th>部署</th>
+          <th>完了数</th>
+          <th>合格数</th>
+          <th>平均最高点</th>
+          <th>最終学習日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rows.each do |row| %>
+          <tr>
+            <td><%= row[:name] %></td>
+            <td><%= row[:department] %></td>
+            <td><%= row[:completed] %></td>
+            <td><%= row[:passed] %></td>
+            <td><%= row[:average] %></td>
+            <td><%= row[:last_learning] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </article>
+</section>

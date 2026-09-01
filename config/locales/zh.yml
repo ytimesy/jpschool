@@ -148,6 +148,7 @@ zh:
     question_1: "「おはようございます」是什么意思？"
     question_1_kana: "请选择「おはようございます」的意思。"
     question_2: "「よろしくお願いします」是什么意思？"
+    question_2_kana: "请选择「よろしくお願いします」的意思。"
     options_1:
       - "晚安"
       - "早上好"
@@ -157,6 +158,7 @@ zh:
       - "再见"
       - "对不起"
     submit: "回答"
+    next_question: "下一题"
     option_locale_badge: "选项语言: %{option_locale}"
     result_screen: "结果"
     result_title: "小测验结果"

@@ -148,6 +148,7 @@ vi:
     question_1: "「おはようございます」 có nghĩa là gì?"
     question_1_kana: "Chọn nghĩa của 「おはようございます」."
     question_2: "「よろしくお願いします」 có nghĩa là gì?"
+    question_2_kana: "Chọn nghĩa của 「よろしくお願いします」."
     options_1:
       - "Chúc ngủ ngon"
       - "Chào buổi sáng"
@@ -157,6 +158,7 @@ vi:
       - "Hẹn gặp lại"
       - "Xin lỗi"
     submit: "Trả lời"
+    next_question: "Câu tiếp theo"
     option_locale_badge: "Ngôn ngữ lựa chọn: %{option_locale}"
     result_screen: "Kết quả"
     result_title: "Kết quả kiểm tra"

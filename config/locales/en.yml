@@ -148,6 +148,7 @@ en:
     question_1: "What does 「おはようございます」 mean?"
     question_1_kana: "Choose the meaning of 「おはようございます」."
     question_2: "What does 「よろしくお願いします」 mean?"
+    question_2_kana: "Choose the meaning of 「よろしくお願いします」."
     options_1:
       - "Good night"
       - "Good morning"
@@ -157,6 +158,7 @@ en:
       - "See you"
       - "Sorry"
     submit: "Answer"
+    next_question: "Next question"
     option_locale_badge: "Option locale: %{option_locale}"
     result_screen: "Result"
     result_title: "Quiz result"

@@ -2,7 +2,7 @@
   <div class="screen-label"><%= t('quiz.screen') %></div>
   <div class="page-title-row">
     <div>
-      <p class="eyebrow"><%= t('quiz.question_count', current: 1, total: @questions.length) %></p>
+      <p class="eyebrow"><%= t('quiz.question_count', current: @current_index + 1, total: @questions.length) %></p>
       <h2><%= t('quiz.title') %></h2>
     </div>
     <span class="status-pill"><%= t('quiz.pass_line') %></span>
@@ -10,15 +10,20 @@
 
   <form class="quiz-form" action="/lessons/<%= @lesson_id %>/quiz" method="post">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <% q = @questions.first %>
+    <%= hidden_field_tag :question, @current_index + 1 %>
+    <% @answers.each do |question_id, selected_option| %>
+      <% next if question_id.to_i == @current_question[:id] %>
+      <%= hidden_field_tag "answers[#{question_id}]", selected_option %>
+    <% end %>
+    <% q = @current_question %>
     <article class="question-card">
       <h3>Q<%= q[:id] %>. <%= q[:question] %></h3>
-      <p class="kana-text"><%= t('quiz.question_1_kana') %></p>
+      <p class="kana-text"><%= q[:kana] %></p>
       <p class="muted"><%= t('quiz.option_locale_badge', option_locale: q[:option_locale]) %></p>
       <div class="option-stack">
         <% q[:options].each_with_index do |opt, idx| %>
           <label class="option-row">
-            <input type="radio" name="answers[<%= q[:id] %>]" value="<%= idx + 1 %>">
+            <input type="radio" name="answers[<%= q[:id] %>]" value="<%= idx + 1 %>" <%= 'checked' if @answers[q[:id].to_s].to_i == idx + 1 %>>
             <span><%= opt %></span>
           </label>
         <% end %>
@@ -27,7 +32,7 @@
 
     <div class="sticky-actions">
       <%= link_to t('common.back'), lesson_path(@lesson_id), class: 'secondary-action' %>
-      <button type="submit" class="primary-action"><%= t('quiz.submit') %></button>
+      <button type="submit" class="primary-action"><%= @current_index == @questions.length - 1 ? t('quiz.submit') : t('quiz.next_question') %></button>
     </div>
   </form>
 </section>

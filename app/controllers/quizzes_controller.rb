@@ -1,23 +1,67 @@
 class QuizzesController < ApplicationController
   def show
-    # sample quiz for lesson
     @lesson_id = params[:lesson_id]
-    @questions = [
-      { id: 1, question: I18n.t('quiz.question_1'), option_locale: 'learner', options: I18n.t('quiz.options_1'), answer: 2 },
-      { id: 2, question: I18n.t('quiz.question_2'), option_locale: 'learner', options: I18n.t('quiz.options_2'), answer: 1 }
-    ]
+    @questions = quiz_questions
+    @answers = normalized_answers
+    @current_index = bounded_question_index(params[:question])
+    @current_question = @questions[@current_index]
   end
 
   def results
-    # simple scoring logic from params
-    correct = 0
-    answers = params[:answers] || {}
-    answer_key = { 1 => 2, 2 => 1 }
-    answers.each do |question_id, selected_option|
-      correct += 1 if selected_option.to_i == answer_key[question_id.to_i]
+    @lesson_id = params[:lesson_id]
+    @questions = quiz_questions
+    @answers = normalized_answers
+    @current_index = bounded_question_index(params[:question])
+
+    if @current_index < @questions.length - 1
+      @current_index += 1
+      @current_question = @questions[@current_index]
+      return render :show, status: :ok
     end
-    @score = (correct.to_f / 2 * 100).to_i
+
+    correct = 0
+    @questions.each do |question|
+      correct += 1 if @answers[question[:id].to_s].to_i == question[:answer]
+    end
+    @score = (correct.to_f / @questions.length * 100).to_i
     @correct = correct
-    @total = 2
+    @total = @questions.length
+  end
+
+  private
+
+  def quiz_questions
+    [
+      {
+        id: 1,
+        kana: I18n.t('quiz.question_1_kana'),
+        question: I18n.t('quiz.question_1'),
+        option_locale: 'learner',
+        options: I18n.t('quiz.options_1'),
+        answer: 2
+      },
+      {
+        id: 2,
+        kana: I18n.t('quiz.question_2_kana'),
+        question: I18n.t('quiz.question_2'),
+        option_locale: 'learner',
+        options: I18n.t('quiz.options_2'),
+        answer: 1
+      }
+    ]
+  end
+
+  def normalized_answers
+    answers = params[:answers]
+    return {} unless answers.respond_to?(:permit!)
+
+    answers.permit!.to_h
+  end
+
+  def bounded_question_index(value)
+    index = value.to_i - 1
+    return 0 if index.negative?
+
+    [index, quiz_questions.length - 1].min
   end
 end

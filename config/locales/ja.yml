@@ -148,6 +148,7 @@ ja:
     question_1: "「おはようございます」の意味は？"
     question_1_kana: "「おはようございます」の いみは どれですか。"
     question_2: "「よろしくお願いします」の意味は？"
+    question_2_kana: "「よろしくお願いします」の いみは どれですか。"
     options_1:
       - "おやすみなさい"
       - "おはようございます"
@@ -157,6 +158,7 @@ ja:
       - "See you"
       - "Sorry"
     submit: "回答する"
+    next_question: "次の問題へ"
     option_locale_badge: "選択肢言語: %{option_locale}"
     result_screen: "結果"
     result_title: "小テスト結果"

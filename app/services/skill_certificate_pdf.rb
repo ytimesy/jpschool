@@ -14,8 +14,9 @@ class SkillCertificatePdf
     objects = []
     objects << "<< /Type /Catalog /Pages 2 0 R >>"
     objects << "<< /Type /Pages /Kids [3 0 R] /Count 1 >>"
-    objects << "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 #{PAGE_WIDTH} #{PAGE_HEIGHT}] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>"
-    objects << "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"
+    objects << "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 #{PAGE_WIDTH} #{PAGE_HEIGHT}] /Resources << /Font << /F1 4 0 R >> >> /Contents 6 0 R >>"
+    objects << "<< /Type /Font /Subtype /Type0 /BaseFont /HeiseiKakuGo-W5 /Encoding /UniJIS-UCS2-H /DescendantFonts [5 0 R] >>"
+    objects << "<< /Type /Font /Subtype /CIDFontType0 /BaseFont /HeiseiKakuGo-W5 /CIDSystemInfo << /Registry (Adobe) /Ordering (Japan1) /Supplement 5 >> >>"
     objects << "<< /Length #{content.bytesize} >>\nstream\n#{content}\nendstream"
 
     build_pdf(objects)
@@ -28,28 +29,42 @@ class SkillCertificatePdf
   def content
     @content ||= begin
       text_lines = [
-        ["Skill Certificate", 24],
-        ["Work Nihongo learning record", 15],
-        ["Learner: #{report.user[:display_name]}", 12],
-        ["Issued on: #{report.issued_on.iso8601}", 12],
-        ["Completed lessons: #{report.completed_count} / #{report.total_lessons} (#{report.completion_rate}%)", 12],
-        ["Comprehension passed: #{report.passed_count} / #{report.total_lessons} (#{report.pass_rate}%)", 12],
-        ["Self-assessed Can do: #{report.assessed_count} / #{report.total_lessons} (#{report.self_assessment_rate}%)", 12],
-        ["Best score: #{report.highest_score || '-'}", 12],
-        ["Average score: #{report.average_score || '-'}", 12],
-        ["This document is not an official Japanese level certification.", 11],
-        ["It records web learning activity, quiz results, and self-assessment only.", 11]
+        ["スキル証書 / Skill Certificate", 22],
+        ["しごと日本語 / Work Nihongo Web学習記録", 14],
+        ["学習者: #{report.user[:display_name]}", 11],
+        ["発行日: #{report.issued_on.iso8601}", 11],
+        ["完了レッスン: #{report.completed_count} / #{report.total_lessons} (#{report.completion_rate}%)", 11],
+        ["理解テスト合格: #{report.passed_count} / #{report.total_lessons} (#{report.pass_rate}%)", 11],
+        ["Can do自己評価済み: #{report.assessed_count} / #{report.total_lessons} (#{report.self_assessment_rate}%)", 11],
+        ["最高点: #{report.highest_score || '-'}", 11],
+        ["平均点: #{report.average_score || '-'}", 11],
+        ["このPDFはWeb学習、理解テスト、Can do自己評価の記録です。", 10],
+        ["日本語能力レベルを公的に認定する証明書ではありません。", 10],
+        ["", 8],
+        ["Can do別サマリー", 12],
+        *lesson_summary_lines
       ]
 
       y = 760
       commands = ["BT"]
       text_lines.each do |text, size|
         commands << "/F1 #{size} Tf"
-        commands << "72 #{y} Td (#{escape(text)}) Tj"
+        commands << "1 0 0 1 72 #{y} Tm #{pdf_text(text)} Tj"
         y -= size >= 15 ? 32 : 22
       end
       commands << "ET"
       commands.join("\n")
+    end
+  end
+
+  def lesson_summary_lines
+    report.lesson_rows.map do |row|
+      score = row[:highest_score] || "-"
+      assessment = row[:self_assessment] || "-"
+      title = truncate(row[:title], 18)
+      can_do = truncate(row[:can_do], 35)
+
+      ["#{row[:position]}. #{title} / 点数 #{score} / 自己評価 #{assessment} / #{can_do}", 8]
     end
   end
 
@@ -73,10 +88,14 @@ class SkillCertificatePdf
     body
   end
 
-  def escape(text)
-    text.to_s.encode("Windows-1252", invalid: :replace, undef: :replace, replace: "-")
-        .gsub("\\", "\\\\\\")
-        .gsub("(", "\\(")
-        .gsub(")", "\\)")
+  def pdf_text(text)
+    "<#{text.to_s.encode("UTF-16BE", invalid: :replace, undef: :replace, replace: "?").unpack1("H*").upcase}>"
+  end
+
+  def truncate(text, length)
+    value = text.to_s
+    return value if value.length <= length
+
+    "#{value.first(length - 1)}…"
   end
 end

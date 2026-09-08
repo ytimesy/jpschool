@@ -140,6 +140,7 @@ ja:
       description: "病院、地震、火事、連絡先を伝える"
       objective: "緊急時に助けを求め、連絡先を伝えられる。"
   lesson_detail:
+    steps_label: "学習ステップ"
     note_primary: "職場で必要な場面ですぐに使う表現です。"
     note_secondary: "分からないときは、短く丁寧に伝えます。"
     today_can_do: "今日のCan do"

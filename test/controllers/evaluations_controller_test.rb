@@ -9,6 +9,7 @@ class EvaluationsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".evaluation-summary article", count: 4
     assert_select "tbody tr", count: 12
     assert_select "a[href='#{evaluation_certificate_path(format: :pdf)}']", text: "スキル証書PDF"
+    assert_select "a[href='#{progress_path}']", count: 0
     assert_match "Web学習だけで日本語能力レベルを認定するものではありません", response.body
   end
 
@@ -30,7 +31,8 @@ class EvaluationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal "application/pdf", response.media_type
     assert response.body.start_with?("%PDF-1.4")
-    assert_includes response.body, "Skill Certificate"
+    assert_includes response.body, "/UniJIS-UCS2-H"
+    assert_includes response.body, "/HeiseiKakuGo-W5"
     assert_includes response.headers["Content-Disposition"], "work-nihongo-skill-certificate.pdf"
   end
 

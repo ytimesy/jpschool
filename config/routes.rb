@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get '/review', to: 'reviews#index'
   get '/reviews', to: redirect('/review')
-  get '/progress', to: 'progress#index'
+  get '/progress', to: redirect('/evaluation')
   get '/evaluation', to: 'evaluations#show'
   get '/evaluation/certificate', to: 'evaluations#certificate', as: :evaluation_certificate
   get '/settings', to: 'settings#index'

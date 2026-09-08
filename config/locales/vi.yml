@@ -140,6 +140,7 @@ vi:
       description: "Nói bệnh viện, động đất, cháy và liên hệ"
       objective: "Có thể nhờ giúp đỡ và nói thông tin liên hệ khi khẩn cấp."
   lesson_detail:
+    steps_label: "Các bước học"
     note_primary: "Đây là cách nói có thể dùng ngay trong tình huống nơi làm việc."
     note_secondary: "Khi không hiểu, hãy nói ngắn gọn và lịch sự."
     today_can_do: "Can do hôm nay"

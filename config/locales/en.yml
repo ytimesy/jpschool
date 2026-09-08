@@ -140,6 +140,7 @@ en:
       description: "Say hospital, earthquake, fire, and contact"
       objective: "Ask for help and share contact information in an emergency."
   lesson_detail:
+    steps_label: "Learning steps"
     note_primary: "Use this expression right away in common workplace situations."
     note_secondary: "When you do not understand, say it briefly and politely."
     today_can_do: "Today's Can do"

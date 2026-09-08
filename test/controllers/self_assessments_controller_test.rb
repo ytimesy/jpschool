@@ -40,12 +40,12 @@ class SelfAssessmentsControllerTest < ActionDispatch::IntegrationTest
     assert_match "自己評価を選んでください。", response.body
   end
 
-  test "progress shows saved self assessment" do
+  test "evaluation shows saved self assessment" do
     patch lesson_self_assessment_url(3), params: {
       authenticity_token: authenticity_token(lesson_id: 3),
       rating: 3
     }
-    get progress_url
+    get evaluation_url
 
     assert_response :success
     assert_match "かなり助けが必要", response.body

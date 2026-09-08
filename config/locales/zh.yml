@@ -140,6 +140,7 @@ zh:
       description: "表达医院、地震、火灾和联系方式"
       objective: "紧急时能够请求帮助并说明联系方式。"
   lesson_detail:
+    steps_label: "学习步骤"
     note_primary: "这是可以在职场常见场景中马上使用的表达。"
     note_secondary: "不明白时，请简短并礼貌地说明。"
     today_can_do: "今天的Can do"

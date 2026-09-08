@@ -8,9 +8,11 @@ class SelfAssessmentsController < ApplicationController
       return redirect_to lesson_path(lesson[:id]), alert: I18n.t("lesson_detail.self_assessment_invalid")
     end
 
+    option = lesson[:self_assessment_options].find { |candidate| candidate[:rating] == rating }
     self_assessment_store[lesson[:id].to_s] = {
       "rating" => rating,
-      "label" => lesson[:self_assessment_options].find { |option| option[:rating] == rating }[:label],
+      "can_do_code" => lesson[:can_do][:code],
+      "label" => option[:label],
       "assessed_at" => Time.current.iso8601
     }
 

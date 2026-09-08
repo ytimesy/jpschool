@@ -1,6 +1,10 @@
 require "test_helper"
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    sign_in_with_google
+  end
+
   test "next lesson title description minutes and link come from one lesson" do
     get root_url
 

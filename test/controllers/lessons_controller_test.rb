@@ -1,6 +1,10 @@
 require "test_helper"
 
 class LessonsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    sign_in_with_google
+  end
+
   test "lesson index lists all public lessons in position order" do
     get lessons_url
 

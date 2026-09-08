@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: 'home#index'
   get '/login', to: 'sessions#new'
+  post '/auth/google_oauth2', to: 'sessions#google_start', as: :google_login
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post], as: :auth_callback
+  match '/auth/failure', to: 'sessions#failure', via: [:get, :post]
+  delete '/logout', to: 'sessions#destroy'
   get '/initial-setup', to: 'initial_setup#index'
 
   resources :lessons, only: [:index, :show] do

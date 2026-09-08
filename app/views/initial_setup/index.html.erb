@@ -3,7 +3,7 @@
   <h2><%= t('initial_setup.title') %></h2>
   <p class="muted"><%= t('initial_setup.description') %></p>
 
-  <form class="form-stack" action="<%= root_path %>" method="get">
+  <form class="form-stack" action="<%= login_path %>" method="get">
     <label>
       <span><%= t('common.locale') %></span>
       <select name="locale">
@@ -12,14 +12,6 @@
         <option value="vi" <%= 'selected' if current_locale == :vi %>><%= t('common.vietnamese') %></option>
         <option value="zh" <%= 'selected' if current_locale == :zh %>><%= t('common.chinese') %></option>
       </select>
-    </label>
-    <label>
-      <span><%= t('common.new_password') %></span>
-      <input type="password" value="new-password">
-    </label>
-    <label>
-      <span><%= t('initial_setup.confirm_password') %></span>
-      <input type="password" value="new-password">
     </label>
     <div class="policy-box">
       <h3><%= t('initial_setup.policy_title') %></h3>

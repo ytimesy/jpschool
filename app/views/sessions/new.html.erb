@@ -3,15 +3,11 @@
   <h2><%= t('login.title') %></h2>
   <p class="muted"><%= t('login.description') %></p>
 
-  <form class="form-stack" action="<%= root_path %>" method="get">
-    <label>
-      <span><%= t('login.login_id') %></span>
-      <input type="text" value="A0001" autocomplete="username">
-    </label>
-    <label>
-      <span><%= t('login.password') %></span>
-      <input type="password" value="password" autocomplete="current-password">
-    </label>
+  <div class="form-stack">
+    <%= button_to t('login.google_submit'), google_login_path, method: :post, class: "primary-action" %>
+  </div>
+
+  <%= form_with url: login_path, method: :get, class: "form-stack" do %>
     <label>
       <span><%= t('common.locale') %></span>
       <select name="locale">
@@ -21,8 +17,8 @@
         <option value="zh" <%= 'selected' if current_locale == :zh %>><%= t('common.chinese') %></option>
       </select>
     </label>
-    <button type="submit" class="primary-action"><%= t('login.submit') %></button>
-  </form>
+    <button type="submit" class="secondary-action"><%= t('common.save') %></button>
+  <% end %>
 
   <p class="notice-text"><%= t('login.forgot') %></p>
 </section>

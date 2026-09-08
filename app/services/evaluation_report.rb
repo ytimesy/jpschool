@@ -63,12 +63,19 @@ class EvaluationReport
         completed: %w[completed passed].include?(lesson[:status_key]),
         highest_score: score,
         passed: score.present? && score >= PASS_SCORE,
-        self_assessment: assessment&.fetch("label", nil)
+        self_assessment: assessment_label(assessment)
       }
     end
   end
 
   private
+
+  def assessment_label(assessment)
+    return if assessment.blank?
+    return assessment.label if assessment.respond_to?(:label)
+
+    assessment.fetch("label", nil)
+  end
 
   def scored_lessons
     lessons.select { |lesson| lesson[:highest_score].present? }

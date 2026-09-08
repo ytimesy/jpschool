@@ -9,6 +9,10 @@
 
   <form class="form-stack" action="<%= settings_path %>" method="get">
     <label>
+      <span><%= t('settings.google_account') %></span>
+      <input type="email" value="<%= current_user.email %>" readonly>
+    </label>
+    <label>
       <span><%= t('common.locale') %></span>
       <select name="locale">
         <option value="ja" <%= 'selected' if current_locale == :ja %>><%= t('common.japanese') %></option>
@@ -17,16 +21,8 @@
         <option value="zh" <%= 'selected' if current_locale == :zh %>><%= t('common.chinese') %></option>
       </select>
     </label>
-    <label>
-      <span><%= t('common.current_password') %></span>
-      <input type="password">
-    </label>
-    <label>
-      <span><%= t('common.new_password') %></span>
-      <input type="password">
-    </label>
     <button type="submit" class="primary-action"><%= t('common.save') %></button>
   </form>
 
-  <%= link_to t('common.logout'), login_path, class: 'danger-action' %>
+  <%= button_to t('common.logout'), logout_path, method: :delete, class: 'danger-action' %>
 </section>

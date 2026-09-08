@@ -8,6 +8,7 @@
 - `TASKS.md`: 20営業日の実装タスクと進捗
 - `AGENTS.md`: Codexと開発者が守るプロジェクトルール
 - `docs/decisions.md`: 重要な設計判断
+- `docs/release-v1-design.md`: v1.00時点の機能、画面遷移、データフロー設計
 
 ## セットアップ
 
@@ -17,6 +18,22 @@ Rubyは `.ruby-version` に合わせて `3.3.9` を使用します。現在の�
 rbenv install 3.3.9
 bin/setup
 ```
+
+## Googleログイン設定
+
+ログインはGoogle OAuthを使用します。利用者DBは作らず、Googleアカウント情報をRailsセッションに保持します。
+
+ローカルまたはデプロイ環境で次の環境変数を設定してください。
+
+```sh
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+GOOGLE_ADMIN_EMAILS=admin@example.com
+GOOGLE_STOPPED_EMAILS=stopped@example.com
+```
+
+`GOOGLE_ADMIN_EMAILS` と `GOOGLE_STOPPED_EMAILS` はカンマ区切りで複数指定できます。
+
 
 ## 開発環境
 
@@ -108,6 +125,6 @@ bin/rails content:validate
 
 ## 現在の状態
 
-Railsの最小構成と、学習者向け・管理者向けの画面モックがあります。表示言語は日本語、英語、ベトナム語、中国語に対応しています。
+Railsの最小構成と、学習者向け・管理者向けの画面があります。表示言語は日本語、英語、ベトナム語、中国語に対応しています。
 
-GAP-01対応の土台として、教材DBモデル、教材YAML、`content:validate`、Minitestのモデル/サービス検証を追加しています。認証、教材インポート、復習回答履歴、進捗集計の本実装は今後のGAPで対応します。
+GAP-01対応の土台として、教材DBモデル、教材YAML、`content:validate`、Minitestのモデル/サービス検証を追加しています。現在は、Googleログイン、ログアウト、停止ユーザー制御、管理者ロール認可まで実装済みです。利用者DBは持たず、自己評価はログインセッション内に保存します。教材インポート、復習回答履歴、進捗集計の本実装は今後のGAPで対応します。

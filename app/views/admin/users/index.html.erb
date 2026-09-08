@@ -24,7 +24,7 @@
       <table>
         <thead>
           <tr>
-            <th>ログインID</th>
+            <th>Googleメール</th>
             <th>表示名</th>
             <th>言語</th>
             <th>部署・職種</th>
@@ -37,14 +37,14 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><%= user[:login_id] %></td>
+              <td><%= user[:email] %></td>
               <td><%= user[:display_name] %></td>
               <td><%= user[:locale] %></td>
               <td><%= user[:department] %> / <%= user[:job_type] %></td>
               <td><span class="status-pill"><%= user[:status] %></span></td>
               <td><%= user[:last_login] %></td>
               <td><%= user[:last_learning] %></td>
-              <td><%= link_to '編集', admin_user_path(user[:login_id]), class: 'text-link' %></td>
+              <td><%= link_to '編集', admin_user_path(user[:email]), class: 'text-link' %></td>
             </tr>
           <% end %>
         </tbody>
@@ -54,8 +54,8 @@
     <article class="status-panel">
       <h3>CSV登録プレビュー</h3>
       <p class="muted">取込前に成功予定件数と失敗行の理由を確認します。</p>
-      <pre>login_id,display_name,locale,department,job_type
-A0001,Nguyen Van A,vi,工場1,製造</pre>
+      <pre>email,display_name,locale,department,job_type
+learner1@example.com,Nguyen Van A,vi,工場1,製造</pre>
     </article>
   </div>
 </section>

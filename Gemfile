@@ -7,7 +7,6 @@ gem 'pg', '>= 1.0'
 gem 'puma'
 gem 'jbuilder'
 gem 'sprockets-rails'
-
 # Use Hotwire
 gem 'turbo-rails'
 gem 'stimulus-rails'

@@ -2,7 +2,7 @@
   <div class="screen-label">利用者編集</div>
   <div class="page-title-row">
     <div>
-      <p class="eyebrow"><%= @user[:login_id] %></p>
+      <p class="eyebrow"><%= @user[:email] %></p>
       <h2><%= @user[:display_name] %></h2>
     </div>
     <span class="status-pill"><%= @user[:status] %></span>
@@ -16,7 +16,6 @@
   </form>
 
   <div class="action-row">
-    <button type="button" class="secondary-action">仮パスワード再発行</button>
     <button type="button" class="danger-action">利用停止</button>
   </div>
 </section>

@@ -1,6 +1,10 @@
 require "test_helper"
 
 class QuizzesControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    sign_in_with_google
+  end
+
   test "posting the first answer renders the second question" do
     post lesson_quiz_url(lesson_id: 1), params: {
       authenticity_token: authenticity_token,

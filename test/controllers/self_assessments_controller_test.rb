@@ -1,6 +1,10 @@
 require "test_helper"
 
 class SelfAssessmentsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    sign_in_with_google(email: "learner@example.com", name: "Current Learner")
+  end
+
   test "saves self assessment for the selected lesson" do
     patch lesson_self_assessment_url(2), params: {
       authenticity_token: authenticity_token(lesson_id: 2),
@@ -51,6 +55,22 @@ class SelfAssessmentsControllerTest < ActionDispatch::IntegrationTest
     assert_match "かなり助けが必要", response.body
   end
 
+  test "self assessment session is cleared when another Google user signs in" do
+    patch lesson_self_assessment_url(2), params: {
+      authenticity_token: authenticity_token(lesson_id: 2),
+      rating: 4
+    }
+    follow_redirect!
+    assert_select ".saved-assessment", text: /まだ難しい/
+
+    delete logout_url, params: { authenticity_token: logout_authenticity_token }
+    sign_in_with_google(email: "other@example.com", name: "Other Learner")
+    get lesson_url(2)
+
+    assert_response :success
+    assert_select ".saved-assessment", count: 0
+  end
+
   private
 
   def authenticity_token(lesson_id:)
@@ -59,4 +79,12 @@ class SelfAssessmentsControllerTest < ActionDispatch::IntegrationTest
 
     response.body.match(/name="authenticity_token"[^>]*value="([^"]+)"/)[1]
   end
+
+  def logout_authenticity_token
+    get settings_url
+    assert_response :success
+
+    response.body.match(/name="authenticity_token"[^>]*value="([^"]+)"/)[1]
+  end
+
 end

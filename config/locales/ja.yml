@@ -84,6 +84,7 @@ ja:
     dialogue_senior: "この箱を入口へ持ってきてください。"
     dialogue_learner: "はい。これでいいですか。"
     audio_missing: "音声準備中"
+    audio_speed: "音声速度"
     not_found: "教材が見つかりません。"
     greetings:
       title: "あいさつ"

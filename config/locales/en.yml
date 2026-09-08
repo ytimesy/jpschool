@@ -84,6 +84,7 @@ en:
     dialogue_senior: "Please bring this box to the entrance."
     dialogue_learner: "Yes. Is this okay?"
     audio_missing: "Audio coming soon"
+    audio_speed: "Audio speed"
     not_found: "Lesson not found."
     greetings:
       title: "Greetings"

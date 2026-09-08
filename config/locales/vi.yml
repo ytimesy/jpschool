@@ -84,6 +84,7 @@ vi:
     dialogue_senior: "Hãy mang hộp này đến lối vào."
     dialogue_learner: "Vâng. Như vậy được không?"
     audio_missing: "Đang chuẩn bị âm thanh"
+    audio_speed: "Tốc độ âm thanh"
     not_found: "Không tìm thấy bài học."
     greetings:
       title: "Chào hỏi"

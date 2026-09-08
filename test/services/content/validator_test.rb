@@ -44,11 +44,11 @@ class Content::ValidatorTest < ActiveSupport::TestCase
     assert result.errors.any? { |issue| issue.field == "quizzes" }
   end
 
-  test "draft lessons warn but do not fail for missing standard counts" do
+  test "draft lessons skip standard count checks" do
     result = validate_yaml(lesson_yaml(published: false))
 
     assert result.success?
-    assert result.warnings.any? { |issue| issue.field == "phrases" }
+    assert_empty result.warnings.select { |issue| %w[phrases dialogue_lines quizzes].include?(issue.field) }
   end
 
   test "reports file lesson content id field and reason" do
@@ -59,6 +59,28 @@ class Content::ValidatorTest < ActiveSupport::TestCase
     assert_equal "ask-confirm", issue.lesson_slug
     assert_equal "q01", issue.content_id
     assert_equal "must be learner or ja", issue.reason
+  end
+
+  test "detects duplicate lesson positions" do
+    yaml = base_yaml([
+      lesson_hash("lesson-one", position: 1),
+      lesson_hash("lesson-two", position: 1)
+    ])
+
+    result = validate_yaml(yaml)
+
+    assert result.errors.any? { |issue| issue.field == "position" && issue.reason == "duplicate position 1" }
+  end
+
+  test "detects missing lesson positions" do
+    yaml = base_yaml([
+      lesson_hash("lesson-one", position: 1),
+      lesson_hash("lesson-two", position: 3)
+    ])
+
+    result = validate_yaml(yaml)
+
+    assert result.errors.any? { |issue| issue.field == "position" && issue.reason == "missing position 2" }
   end
 
   private
@@ -82,8 +104,8 @@ class Content::ValidatorTest < ActiveSupport::TestCase
     }.to_yaml
   end
 
-  def lesson_hash(slug, phrases: [phrase("p01")], dialogues: [dialogue], quizzes: [quiz("q01")], published: false)
-    {
+  def lesson_hash(slug, phrases: [phrase("p01")], dialogues: [dialogue], quizzes: [quiz("q01")], published: false, position: nil)
+    lesson = {
       "slug" => slug,
       "content_version" => 1,
       "published" => published,
@@ -94,6 +116,8 @@ class Content::ValidatorTest < ActiveSupport::TestCase
       "dialogues" => dialogues,
       "quizzes" => quizzes
     }
+    lesson["position"] = position if position
+    lesson
   end
 
   def phrase(id)

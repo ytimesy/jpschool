@@ -10,13 +10,13 @@
 
   <article class="focus-card">
     <p class="eyebrow"><%= t('home.next_lesson') %></p>
-    <h3><%= t('home.next_title') %></h3>
-    <p><%= t('home.next_description') %></p>
+    <h3><%= @next_lesson[:title] %></h3>
+    <p><%= @next_lesson[:description] %></p>
     <div class="meta-row">
-      <span><%= t('common.minutes', count: 8) %></span>
+      <span><%= t('common.minutes', count: @next_lesson[:minutes]) %></span>
       <span><%= t('home.resume') %></span>
     </div>
-    <%= link_to t('home.start_resume'), lesson_path(3), class: 'primary-action' %>
+    <%= link_to t('home.start_resume'), lesson_path(@next_lesson[:id]), class: 'primary-action' %>
   </article>
 
   <div class="summary-grid">

@@ -43,6 +43,7 @@ module Content
         add_error(file:, lesson_slug: slug, field: "slug", reason: "duplicate lesson slug")
       end
 
+      validate_lesson_positions(file:, lessons:)
       lessons.each { |lesson| validate_lesson(file, lesson) }
     rescue Psych::Exception, KeyError => e
       add_error(file: path.to_s, field: "yaml", reason: e.message)
@@ -73,7 +74,46 @@ module Content
       end
     end
 
+    def validate_lesson_positions(file:, lessons:)
+      return if lessons.length <= 1 && lessons.none? { |lesson| lesson.key?("position") || lesson.key?("sort_order") }
+
+      positions = lessons.map { |lesson| lesson_position(lesson) }
+
+      lessons.zip(positions).each do |lesson, position|
+        if position.nil?
+          add_error(file:, lesson_slug: lesson["slug"], field: "position", reason: "is required")
+        elsif !position.is_a?(Integer) || position < 1
+          add_error(file:, lesson_slug: lesson["slug"], field: "position", reason: "must be a positive integer")
+        end
+      end
+
+      valid_positions = positions.select { |position| position.is_a?(Integer) && position.positive? }
+      valid_positions.tally.each do |position, count|
+        next if count == 1
+
+        lessons_with_position(lessons, position).each do |lesson|
+          add_error(file:, lesson_slug: lesson["slug"], field: "position", reason: "duplicate position #{position}")
+        end
+      end
+
+      (1..lessons.length).each do |expected_position|
+        next if valid_positions.include?(expected_position)
+
+        add_error(file:, field: "position", reason: "missing position #{expected_position}")
+      end
+    end
+
+    def lesson_position(lesson)
+      lesson.fetch("position", lesson["sort_order"])
+    end
+
+    def lessons_with_position(lessons, position)
+      lessons.select { |lesson| lesson_position(lesson) == position }
+    end
+
     def validate_standard_counts(file:, lesson_slug:, published:, phrases:, dialogues:, quizzes:)
+      return unless published
+
       checks = [
         ["phrases", phrases.length, 5..8],
         ["dialogue_lines", dialogues.sum { |dialogue| Array(dialogue["lines"]).length }, 4..8],
@@ -83,9 +123,8 @@ module Content
       checks.each do |field, count, range|
         next if range.cover?(count)
 
-        severity = published ? :error : :warning
         @result.add(
-          severity:,
+          severity: :error,
           file:,
           lesson_slug:,
           field:,

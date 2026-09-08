@@ -36,10 +36,12 @@
             <% else %>
               <span><%= t('lessons.audio_missing') %></span>
             <% end %>
-            <div class="speed-control" aria-label="<%= t('lessons.audio_missing') %>">
-              <button type="button">0.75x</button>
-              <button type="button" class="active">1.0x</button>
-            </div>
+            <% if p[:audio].present? %>
+              <div class="speed-control" aria-label="<%= t('lessons.audio_speed') %>">
+                <button type="button">0.75x</button>
+                <button type="button" class="active">1.0x</button>
+              </div>
+            <% end %>
           </div>
         </div>
       </article>
@@ -48,16 +50,14 @@
 
   <article class="dialogue-card">
     <h3><%= t('lessons.dialogue') %></h3>
-    <div class="dialogue-line">
-      <strong><%= t('lessons.senior') %></strong>
-      <p>この箱を入口へ持ってきてください。</p>
-      <p class="translation-text"><%= t('lessons.dialogue_senior') %></p>
-    </div>
-    <div class="dialogue-line">
-      <strong><%= t('lessons.learner') %></strong>
-      <p>はい。これでいいですか。</p>
-      <p class="translation-text"><%= t('lessons.dialogue_learner') %></p>
-    </div>
+    <% @lesson[:dialogue_lines].each do |line| %>
+      <div class="dialogue-line">
+        <strong><%= line[:speaker] %></strong>
+        <p><%= line[:japanese] %></p>
+        <p class="kana-text"><%= line[:kana] %></p>
+        <p class="translation-text"><%= line[:translation] %></p>
+      </div>
+    <% end %>
   </article>
 
   <div class="sticky-actions">

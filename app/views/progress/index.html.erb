@@ -37,7 +37,7 @@
         </tr>
       </thead>
       <tbody>
-        <% demo_lessons.first(5).each do |lesson| %>
+        <% @lessons.each do |lesson| %>
           <tr>
             <td><%= lesson[:title] %></td>
             <td><%= lesson[:status] %></td>

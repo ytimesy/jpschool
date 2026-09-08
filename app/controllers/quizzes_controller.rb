@@ -1,6 +1,9 @@
 class QuizzesController < ApplicationController
   def show
-    @lesson_id = params[:lesson_id]
+    @lesson = demo_lesson(params[:lesson_id])
+    return redirect_to lessons_path, alert: I18n.t('lessons.not_found') unless @lesson
+
+    @lesson_id = @lesson[:id]
     @questions = quiz_questions
     @answers = normalized_answers
     @current_index = bounded_question_index(params[:question])
@@ -8,7 +11,10 @@ class QuizzesController < ApplicationController
   end
 
   def results
-    @lesson_id = params[:lesson_id]
+    @lesson = demo_lesson(params[:lesson_id])
+    return redirect_to lessons_path, alert: I18n.t('lessons.not_found') unless @lesson
+
+    @lesson_id = @lesson[:id]
     @questions = quiz_questions
     @answers = normalized_answers
     @current_index = bounded_question_index(params[:question])
@@ -32,24 +38,7 @@ class QuizzesController < ApplicationController
   private
 
   def quiz_questions
-    [
-      {
-        id: 1,
-        kana: I18n.t('quiz.question_1_kana'),
-        question: I18n.t('quiz.question_1'),
-        option_locale: 'learner',
-        options: I18n.t('quiz.options_1'),
-        answer: 2
-      },
-      {
-        id: 2,
-        kana: I18n.t('quiz.question_2_kana'),
-        question: I18n.t('quiz.question_2'),
-        option_locale: 'learner',
-        options: I18n.t('quiz.options_2'),
-        answer: 1
-      }
-    ]
+    @lesson[:quiz_questions]
   end
 
   def normalized_answers
@@ -63,11 +52,10 @@ class QuizzesController < ApplicationController
     index = value.to_i - 1
     return 0 if index.negative?
 
-    [index, quiz_questions.length - 1].min
+    [index, @questions.length - 1].min
   end
 
   def next_lesson
-    lesson_id = params[:lesson_id].to_i
-    demo_lessons.find { |lesson| lesson[:id] > lesson_id }
+    next_demo_lesson_after(@lesson_id)
   end
 end

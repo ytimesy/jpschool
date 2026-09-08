@@ -84,6 +84,7 @@ zh:
     dialogue_senior: "请把这个箱子拿到入口。"
     dialogue_learner: "好的。这样可以吗？"
     audio_missing: "音频准备中"
+    audio_speed: "音频速度"
     not_found: "找不到教材。"
     greetings:
       title: "问候"

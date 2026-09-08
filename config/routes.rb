@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/initial-setup', to: 'initial_setup#index'
 
   resources :lessons, only: [:index, :show] do
+    patch 'self-assessment', to: 'self_assessments#update'
     get 'quiz', to: 'quizzes#show'
     post 'quiz', to: 'quizzes#results'
     get 'results', to: 'quizzes#results'
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
   get '/review', to: 'reviews#index'
   get '/reviews', to: redirect('/review')
   get '/progress', to: 'progress#index'
+  get '/evaluation', to: 'evaluations#show'
+  get '/evaluation/certificate', to: 'evaluations#certificate', as: :evaluation_certificate
   get '/settings', to: 'settings#index'
   get '/basic-policy', to: 'pages#basic_policy'
   get '/terms', to: 'pages#terms'

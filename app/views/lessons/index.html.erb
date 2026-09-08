@@ -20,6 +20,7 @@
           <p class="kana-text"><%= lesson[:japanese_title] %></p>
         <% end %>
         <p><%= lesson[:description] %></p>
+        <p class="can-do-summary"><%= lesson[:can_do][:statement] %></p>
         <div class="meta-row">
           <span><%= t('common.minutes', count: lesson[:minutes]) %></span>
           <span><%= t('common.highest_score') %>: <%= lesson[:highest_score] || '-' %></span>

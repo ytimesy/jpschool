@@ -34,14 +34,17 @@
           <th><%= t('progress.lesson') %></th>
           <th><%= t('progress.status') %></th>
           <th><%= t('common.highest_score') %></th>
+          <th><%= t('progress.self_assessment') %></th>
         </tr>
       </thead>
       <tbody>
         <% @lessons.each do |lesson| %>
+          <% assessment = self_assessment_for(lesson[:id]) %>
           <tr>
             <td><%= lesson[:title] %></td>
             <td><%= lesson[:status] %></td>
             <td><%= lesson[:highest_score] || '-' %></td>
+            <td><%= assessment&.fetch("label", nil) || '-' %></td>
           </tr>
         <% end %>
       </tbody>

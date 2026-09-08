@@ -31,11 +31,41 @@ class DemoLessonCatalog
     "病院・災害・緊急連絡" => ["病院へ行きたいです。", "びょういんへ いきたいです。", "I want to go to the hospital.", "Tôi muốn đi bệnh viện.", "我想去医院。", "助けてください。", "たすけてください。", "Please help me.", "Xin hãy giúp tôi.", "请帮帮我。"]
   }.freeze
 
-  DISTRACTORS = {
-    ja: "終わりました。",
-    en: "I finished.",
-    vi: "Tôi đã xong.",
-    zh: "我完成了。"
+  DISTRACTOR_POOLS = {
+    ja: ["終わりました。", "休憩します。", "確認します。", "待ってください。"],
+    en: ["I finished.", "I will take a break.", "I will check.", "Please wait."],
+    vi: ["Tôi đã xong.", "Tôi sẽ nghỉ giải lao.", "Tôi sẽ kiểm tra.", "Xin hãy chờ."],
+    zh: ["我完成了。", "我要休息。", "我会确认。", "请等一下。"]
+  }.freeze
+
+  ACTIVITY_CODES = {
+    "ask_confirm" => "spoken_interaction",
+    "danger_stop" => "spoken_interaction",
+    "late_absent_health" => "spoken_interaction",
+    "greetings" => "spoken_interaction",
+    "self_intro" => "spoken_presentation",
+    "time_work" => "listening",
+    "numbers_units" => "listening",
+    "tools_places" => "listening",
+    "safety_signs" => "reading",
+    "report_contact" => "spoken_presentation",
+    "commute_daily" => "writing",
+    "hospital_disaster" => "spoken_interaction"
+  }.freeze
+
+  FRAMEWORK_REFERENCES = {
+    "ask_confirm" => "MHLW work Can do / common clarification skill",
+    "danger_stop" => "MHLW standard curriculum level 1 safety signs",
+    "late_absent_health" => "MHLW standard curriculum level 1 absence contact",
+    "greetings" => "MHLW standard curriculum level 1 greetings",
+    "self_intro" => "MHLW standard curriculum level 1 self introduction",
+    "time_work" => "MHLW standard curriculum level 1 time and place notices",
+    "numbers_units" => "MHLW standard curriculum level 1 numbers and quantities",
+    "tools_places" => "MHLW standard curriculum level 1 work instructions",
+    "safety_signs" => "MHLW standard curriculum level 1 safety signs",
+    "report_contact" => "MHLW work Can do / reporting work status",
+    "commute_daily" => "Life Can do / daily work contact",
+    "hospital_disaster" => "Life Can do / emergency contact"
   }.freeze
 
   class << self
@@ -65,7 +95,7 @@ class DemoLessonCatalog
     def build_lesson(data, locale:)
       japanese_title = I18n.t("lessons.#{data.key}.title", locale: :ja)
       samples = SAMPLES.fetch(japanese_title)
-      phrases = build_phrases(samples)
+      phrases = build_phrases(data.id, samples)
 
       {
         id: data.id,
@@ -80,27 +110,54 @@ class DemoLessonCatalog
         status: I18n.t("statuses.#{data.status_key}", locale:),
         minutes: data.minutes,
         highest_score: data.highest_score,
+        can_do: build_can_do(data, locale),
+        pre_task: build_pre_task(samples, locale),
         phrases:,
         dialogue_lines: build_dialogue_lines(samples, locale),
+        practice: build_practice(samples, locale),
+        role_play: build_role_play(samples, locale),
+        reflection: build_reflection(samples, locale),
+        self_assessment_options: build_self_assessment_options(locale),
         quiz_questions: build_quiz_questions(samples, locale)
       }
     end
 
-    def build_phrases(samples)
+    def build_can_do(data, locale)
+      {
+        code: format("WN-A1-%<position>02d", position: data.id),
+        level: "A1",
+        activity_code: ACTIVITY_CODES.fetch(data.key),
+        activity_label: I18n.t("lesson_detail.activities.#{ACTIVITY_CODES.fetch(data.key)}", locale:),
+        statement: I18n.t("lessons.#{data.key}.objective", locale:),
+        framework_reference: FRAMEWORK_REFERENCES.fetch(data.key),
+        adapted: I18n.t("lesson_detail.framework_adapted", locale:)
+      }
+    end
+
+    def build_pre_task(samples, locale)
+      I18n.t(
+        "lesson_detail.pre_task_body",
+        locale:,
+        phrase: samples[0],
+        response: samples[5]
+      )
+    end
+
+    def build_phrases(lesson_id, samples)
       [
-        phrase(1, samples[0], samples[1], samples[2], samples[3], samples[4], "lesson_detail.note_primary"),
-        phrase(2, samples[5], samples[6], samples[7], samples[8], samples[9], "lesson_detail.note_secondary")
+        phrase(lesson_id, 1, samples[0], samples[1], samples[2], samples[3], samples[4], "lesson_detail.note_primary"),
+        phrase(lesson_id, 2, samples[5], samples[6], samples[7], samples[8], samples[9], "lesson_detail.note_secondary")
       ]
     end
 
-    def phrase(id, japanese, kana, en, vi, zh, note_key)
+    def phrase(lesson_id, id, japanese, kana, en, vi, zh, note_key)
       {
         id:,
         japanese:,
         kana:,
         translation: { ja: japanese, en:, vi:, zh: },
         note: I18n.t(note_key),
-        audio: nil
+        audio: format("/audio/demo/lesson-%<lesson>02d-phrase-%<phrase>02d.m4a", lesson: lesson_id, phrase: id)
       }
     end
 
@@ -121,28 +178,75 @@ class DemoLessonCatalog
       ]
     end
 
-    def build_quiz_questions(samples, locale)
+    def build_practice(samples, locale)
       [
-        quiz_question(1, samples, 0, 5, locale),
-        quiz_question(2, samples, 5, 0, locale)
+        I18n.t("lesson_detail.practice_repeat", locale:, phrase: samples[0]),
+        I18n.t("lesson_detail.practice_replace", locale:, phrase: samples[5])
       ]
     end
 
-    def quiz_question(id, samples, source_index, other_index, locale)
+    def build_role_play(samples, locale)
+      {
+        instruction: I18n.t("lesson_detail.role_play_body", locale:, phrase: samples[5]),
+        checklist: %w[understand ask repeat next_action].map do |key|
+          I18n.t("lesson_detail.role_play_checklist.#{key}", locale:)
+        end
+      }
+    end
+
+    def build_reflection(samples, locale)
+      I18n.t("lesson_detail.reflection_body", locale:, phrase: samples[5])
+    end
+
+    def build_self_assessment_options(locale)
+      (1..4).map do |rating|
+        {
+          rating:,
+          label: I18n.t("lesson_detail.self_assessment_options.#{rating}", locale:)
+        }
+      end
+    end
+
+    def build_quiz_questions(samples, locale)
+      [
+        meaning_question(1, samples, 0, 5, locale),
+        meaning_question(2, samples, 5, 0, locale),
+        japanese_choice_question(3, samples, 0, 5, locale),
+        japanese_choice_question(4, samples, 5, 0, locale)
+      ]
+    end
+
+    def meaning_question(id, samples, source_index, other_index, locale)
       effective_locale = locale.to_sym
+      correct = translated(samples, source_index, effective_locale)
+      other = translated(samples, other_index, effective_locale)
 
       {
         id:,
         kana: "「#{samples[source_index + 1]}」の いみは どれですか。",
-        question: "「#{samples[source_index]}」の意味はどれですか。",
+        question: I18n.t("quiz.meaning_question", locale:, phrase: samples[source_index]),
         option_locale: "learner",
-        options: [
-          translated(samples, source_index, effective_locale),
-          translated(samples, other_index, effective_locale),
-          DISTRACTORS.fetch(effective_locale, DISTRACTORS[:en])
-        ],
+        options: options_for(correct, other, effective_locale),
         answer: 1
       }
+    end
+
+    def japanese_choice_question(id, samples, source_index, other_index, locale)
+      {
+        id:,
+        kana: "どの にほんごを つかいますか。",
+        question: I18n.t("quiz.japanese_choice_question", locale:, meaning: translated(samples, source_index, locale)),
+        option_locale: "ja",
+        options: options_for(samples[source_index], samples[other_index], :ja),
+        answer: 1
+      }
+    end
+
+    def options_for(correct, other, locale)
+      pool = DISTRACTOR_POOLS.fetch(locale.to_sym, DISTRACTOR_POOLS[:en])
+      distractor = pool.find { |candidate| candidate != correct && candidate != other } || pool.first
+
+      [correct, other, distractor].uniq
     end
 
     def translated(samples, start_index, locale)

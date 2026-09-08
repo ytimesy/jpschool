@@ -17,20 +17,20 @@ class QuizzesControllerTest < ActionDispatch::IntegrationTest
   test "posting the final answer scores all submitted answers" do
     post lesson_quiz_url(lesson_id: 1), params: {
       authenticity_token: authenticity_token,
-      question: 2,
-      answers: { "1" => "1", "2" => "1" }
+      question: 4,
+      answers: { "1" => "1", "2" => "1", "3" => "1", "4" => "1" }
     }
 
     assert_response :success
     assert_select ".score-card h2", text: /100/
-    assert_select ".score-card p", text: /2/
+    assert_select ".score-card p", text: /4/
   end
 
   test "result next lesson link uses the lesson after the current lesson" do
     post lesson_quiz_url(lesson_id: 2), params: {
       authenticity_token: authenticity_token(lesson_id: 2),
-      question: 2,
-      answers: { "1" => "1", "2" => "1" }
+      question: 4,
+      answers: { "1" => "1", "2" => "1", "3" => "1", "4" => "1" }
     }
 
     assert_response :success
@@ -41,8 +41,8 @@ class QuizzesControllerTest < ActionDispatch::IntegrationTest
   test "result next action returns to lessons when current lesson is last" do
     post lesson_quiz_url(lesson_id: 12), params: {
       authenticity_token: authenticity_token(lesson_id: 12),
-      question: 2,
-      answers: { "1" => "1", "2" => "1" }
+      question: 4,
+      answers: { "1" => "1", "2" => "1", "3" => "1", "4" => "1" }
     }
 
     assert_response :success

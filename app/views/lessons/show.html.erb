@@ -16,8 +16,24 @@
   </div>
 
   <article class="objective-card">
-    <h3><%= t('lessons.objective') %></h3>
-    <p><%= @lesson[:objective] %></p>
+    <p class="eyebrow"><%= t('lesson_detail.today_can_do') %></p>
+    <h3><%= @lesson[:can_do][:statement] %></h3>
+    <dl class="can-do-meta">
+      <div>
+        <dt><%= t('lesson_detail.level') %></dt>
+        <dd><%= @lesson[:can_do][:level] %></dd>
+      </div>
+      <div>
+        <dt><%= t('lesson_detail.activity') %></dt>
+        <dd><%= @lesson[:can_do][:activity_label] %></dd>
+      </div>
+    </dl>
+    <p class="muted"><%= @lesson[:can_do][:adapted] %></p>
+  </article>
+
+  <article class="dialogue-card">
+    <h3><%= t('lesson_detail.pre_task') %></h3>
+    <p><%= @lesson[:pre_task] %></p>
   </article>
 
   <div class="phrase-stack">
@@ -38,8 +54,8 @@
             <% end %>
             <% if p[:audio].present? %>
               <div class="speed-control" aria-label="<%= t('lessons.audio_speed') %>">
-                <button type="button">0.75x</button>
-                <button type="button" class="active">1.0x</button>
+                <button type="button" data-audio-speed="0.75">0.75x</button>
+                <button type="button" data-audio-speed="1.0" class="active">1.0x</button>
               </div>
             <% end %>
           </div>
@@ -58,6 +74,48 @@
         <p class="translation-text"><%= line[:translation] %></p>
       </div>
     <% end %>
+  </article>
+
+  <article class="dialogue-card">
+    <h3><%= t('lesson_detail.practice') %></h3>
+    <ul class="activity-list">
+      <% @lesson[:practice].each do |practice| %>
+        <li><%= practice %></li>
+      <% end %>
+    </ul>
+  </article>
+
+  <article class="dialogue-card">
+    <h3><%= t('lesson_detail.role_play') %></h3>
+    <p><%= @lesson[:role_play][:instruction] %></p>
+    <ul class="activity-list">
+      <% @lesson[:role_play][:checklist].each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  </article>
+
+  <article class="dialogue-card">
+    <h3><%= t('lesson_detail.self_assessment') %></h3>
+    <% current_assessment = self_assessment_for(@lesson[:id]) %>
+    <% if current_assessment.present? %>
+      <p class="saved-assessment">
+        <%= t('lesson_detail.self_assessment_current') %>: <strong><%= current_assessment["label"] %></strong>
+      </p>
+    <% end %>
+    <%= form_with url: lesson_self_assessment_path(@lesson[:id]), method: :patch, class: "self-assessment-form" do %>
+      <fieldset class="self-assessment-options">
+        <legend><%= t('lesson_detail.self_assessment_prompt') %></legend>
+        <% @lesson[:self_assessment_options].each do |option| %>
+          <label>
+            <%= radio_button_tag :rating, option[:rating], current_assessment&.fetch("rating", nil) == option[:rating] %>
+            <span><%= option[:label] %></span>
+          </label>
+        <% end %>
+      </fieldset>
+      <%= submit_tag t('lesson_detail.self_assessment_submit'), class: 'secondary-action' %>
+    <% end %>
+    <p class="muted"><%= @lesson[:reflection] %></p>
   </article>
 
   <div class="sticky-actions">

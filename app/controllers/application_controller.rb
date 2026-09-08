@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale
 
-  helper_method :demo_lessons, :demo_user, :admin_area?, :current_locale, :public_page?
+  helper_method :demo_lessons, :demo_user, :admin_area?, :current_locale, :public_page?, :self_assessment_for
 
   def demo_user
     {
@@ -31,6 +31,10 @@ class ApplicationController < ActionController::Base
     DemoLessonCatalog.next_for_home(locale: current_locale)
   end
 
+  def self_assessment_for(lesson_id)
+    self_assessment_store[lesson_id.to_s]
+  end
+
   def admin_area?
     request.path.start_with?('/admin')
   end
@@ -51,6 +55,10 @@ class ApplicationController < ActionController::Base
 
     I18n.locale = locale
     session[:locale] = locale
+  end
+
+  def self_assessment_store
+    session[:self_assessments] ||= {}
   end
 
 end

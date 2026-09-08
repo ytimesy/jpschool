@@ -1,0 +1,69 @@
+<section class="evaluation-screen">
+  <div class="screen-label"><%= t('evaluation.screen') %></div>
+  <div class="page-title-row">
+    <div>
+      <p class="eyebrow"><%= t('evaluation.label') %></p>
+      <h2><%= t('evaluation.title') %></h2>
+    </div>
+    <%= link_to t('evaluation.certificate_download'), evaluation_certificate_path(format: :pdf), class: 'primary-action' %>
+  </div>
+
+  <p class="evaluation-note"><%= t('evaluation.notice') %></p>
+
+  <div class="summary-grid evaluation-summary">
+    <article>
+      <span><%= t('evaluation.completed_lessons') %></span>
+      <strong><%= @report.completed_count %> / <%= @report.total_lessons %></strong>
+      <small><%= @report.completion_rate %>%</small>
+    </article>
+    <article>
+      <span><%= t('evaluation.comprehension_passed') %></span>
+      <strong><%= @report.passed_count %> / <%= @report.total_lessons %></strong>
+      <small><%= @report.pass_rate %>%</small>
+    </article>
+    <article>
+      <span><%= t('evaluation.self_assessed') %></span>
+      <strong><%= @report.assessed_count %> / <%= @report.total_lessons %></strong>
+      <small><%= @report.self_assessment_rate %>%</small>
+    </article>
+    <article>
+      <span><%= t('evaluation.best_score') %></span>
+      <strong><%= @report.highest_score || '-' %></strong>
+      <small><%= t('evaluation.average_score', score: @report.average_score || '-') %></small>
+    </article>
+  </div>
+
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th><%= t('evaluation.lesson') %></th>
+          <th><%= t('evaluation.can_do') %></th>
+          <th><%= t('evaluation.activity') %></th>
+          <th><%= t('evaluation.completion') %></th>
+          <th><%= t('evaluation.quiz_score') %></th>
+          <th><%= t('evaluation.self_assessment') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @report.lesson_rows.each do |row| %>
+          <tr>
+            <td><%= row[:position] %>. <%= row[:title] %></td>
+            <td><%= row[:can_do] %></td>
+            <td><%= row[:activity] %></td>
+            <td><%= row[:completed] ? t('evaluation.completed') : t('evaluation.not_completed') %></td>
+            <td>
+              <% if row[:highest_score].present? %>
+                <%= row[:highest_score] %>
+                <span class="score-status"><%= row[:passed] ? t('evaluation.passed') : t('evaluation.retry_needed') %></span>
+              <% else %>
+                -
+              <% end %>
+            </td>
+            <td><%= row[:self_assessment] || '-' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
